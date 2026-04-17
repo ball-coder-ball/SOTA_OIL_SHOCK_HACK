@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Convergence Trap — Thailand Energy Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c10;--s1:#0d1117;--s2:#161b22;--s3:#1c2128;
+  --b1:#21262d;--b2:#30363d;--b3:#484f58;
+  --tx:#e6edf3;--tx2:#8b949e;--tx3:#656d76;
+  --amber:#e3b341;--amberD:#9e7c0a;--amberBg:#e3b34115;
+  --red:#f85149;--redD:#da3633;--redBg:#f8514912;
+  --blue:#58a6ff;--blueD:#1f6feb;--blueBg:#58a6ff12;
+  --green:#3fb950;--greenD:#238636;--greenBg:#3fb95012;
+  --coral:#ff7b72;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans','IBM Plex Sans Thai',sans-serif;
+  --r4:4px;--r8:8px;--r12:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:15px;line-height:1.65;overflow-x:hidden}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--s1)}
+::-webkit-scrollbar-thumb{background:var(--b3);border-radius:2px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,12,16,.85);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--b1);padding:0 28px;
+  display:flex;align-items:center;height:52px;gap:24px}
+.nav-brand{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--tx);
+  display:flex;align-items:center;gap:8px}
+.nav-dot{width:8px;height:8px;background:var(--amber);border-radius:50%;
+  animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.nav-links{display:flex;gap:4px;margin-left:auto}
+.nav-link{font-family:var(--mono);font-size:10px;color:var(--tx3);text-decoration:none;
+  padding:4px 10px;border-radius:var(--r4);transition:color .2s,background .2s}
+.nav-link:hover{color:var(--tx);background:var(--s3)}
+
+/* ── SECTION BASE ── */
+section{padding:80px 0;position:relative}
+.container{max-width:1100px;margin:0 auto;padding:0 28px}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── SECTION CHIP ── */
+.chip{display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 10px;border-radius:3px;margin-bottom:16px;border:1px solid}
+.chip-amber{background:var(--amberBg);color:var(--amber);border-color:#e3b34140}
+.chip-red{background:var(--redBg);color:var(--red);border-color:#f8514940}
+.chip-blue{background:var(--blueBg);color:var(--blue);border-color:#58a6ff40}
+.chip-green{background:var(--greenBg);color:var(--green);border-color:#3fb95040}
+.chip-gray{background:var(--s3);color:var(--tx3);border-color:var(--b2)}
+
+/* ── PLAIN-ENGLISH BOX ── */
+.insight{border-left:3px solid;padding:14px 18px;margin:20px 0 28px;border-radius:0 var(--r8) var(--r8) 0;background:var(--s2)}
+.insight-amber{border-color:var(--amber)}
+.insight-red{border-color:var(--red)}
+.insight-blue{border-color:var(--blue)}
+.insight-green{border-color:var(--green)}
+.insight-label{font-family:var(--mono);font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.insight p{font-size:14px;color:var(--tx2);line-height:1.7}
+.insight strong{color:var(--tx);font-weight:500}
+
+/* ── PANEL ── */
+.panel{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r12);padding:22px 24px}
+.panel-title{font-size:12px;font-family:var(--mono);color:var(--tx2);margin-bottom:4px;letter-spacing:.05em}
+.panel-note{font-size:10px;font-family:var(--mono);color:var(--tx3);margin-top:10px}
+
+/* ── GRIDS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:720px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* ── SECTION TITLE ── */
+.sec-title{font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-.03em;line-height:1.2;margin-bottom:8px}
+.sec-sub{font-size:15px;color:var(--tx2);max-width:600px;line-height:1.7;margin-bottom:28px}
+
+/* ════════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════════ */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding-top:52px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 60% 40%,#e3b34108 0%,transparent 65%),
+  radial-gradient(ellipse 50% 50% at 20% 70%,#f8514908 0%,transparent 60%);
+  pointer-events:none}
+.hero-grid-line{position:absolute;inset:0;
+  background-image:linear-gradient(var(--b1) 1px,transparent 1px),
+    linear-gradient(90deg,var(--b1) 1px,transparent 1px);
+  background-size:40px 40px;opacity:.4;pointer-events:none}
+.hero-inner{position:relative;z-index:1;padding:0 28px;max-width:1100px;margin:0 auto;width:100%}
+.hero-tag{font-family:var(--mono);font-size:10px;color:var(--tx3);letter-spacing:.15em;
+  text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.hero-tag::before{content:'';display:block;width:20px;height:1px;background:var(--amber)}
+.hero-headline{font-size:clamp(32px,5.5vw,64px);font-weight:600;letter-spacing:-.04em;
+  line-height:1.1;margin-bottom:12px}
+.hero-headline em{font-style:normal;color:var(--amber)}
+.hero-sub{font-size:clamp(15px,2vw,19px);color:var(--tx2);max-width:620px;line-height:1.7;margin-bottom:48px}
+.hero-sub strong{color:var(--tx)}
+
+/* counter cards */
+.counter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:48px}
+@media(max-width:720px){.counter-grid{grid-template-columns:repeat(2,1fr)}}
+.ccard{background:var(--s2);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:18px 20px;position:relative;overflow:hidden;transition:border-color .2s}
+.ccard:hover{border-color:var(--b3)}
+.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.ccard-amber::before{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.ccard-red::before{background:linear-gradient(90deg,transparent,var(--red),transparent)}
+.ccard-blue::before{background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.ccard-green::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.ccard-label{font-family:var(--mono);font-size:9px;color:var(--tx3);text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:10px}
+.ccard-val{font-family:var(--mono);font-size:clamp(22px,3vw,30px);font-weight:600;
+  letter-spacing:-.04em;margin-bottom:6px}
+.ccard-desc{font-size:11px;color:var(--tx3);line-height:1.4}
+.c-amber{color:var(--amber)}.c-red{color:var(--red)}.c-blue{color:var(--blue)}.c-green{color:var(--green)}
+
+/* hero CLD */
+.cld-wrap{background:var(--s2);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:20px;margin-bottom:0}
+.cld-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.cld-title{font-family:var(--mono);font-size:11px;color:var(--tx2);letter-spacing:.06em}
+.cld-btns{display:flex;gap:6px;margin-left:auto}
+.loop-btn{font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:3px;
+  border:1px solid;cursor:pointer;transition:all .2s;background:transparent;letter-spacing:.05em}
+.loop-btn-R1{color:var(--amber);border-color:#e3b34150}.loop-btn-R1:hover,.loop-btn-R1.active{background:var(--amberBg);border-color:var(--amber)}
+.loop-btn-R2{color:var(--blue);border-color:#58a6ff50}.loop-btn-R2:hover,.loop-btn-R2.active{background:var(--blueBg);border-color:var(--blue)}
+.loop-btn-B1{color:var(--green);border-color:#3fb95050}.loop-btn-B1:hover,.loop-btn-B1.active{background:var(--greenBg);border-color:var(--green)}
+.cld-info{font-size:12px;color:var(--tx2);padding:10px 14px;background:var(--s3);
+  border-radius:var(--r8);margin-top:10px;min-height:42px;line-height:1.6;
+  border-left:2px solid var(--b3);transition:border-color .3s}
+.cld-info.r1{border-color:var(--amber)}.cld-info.r2{border-color:var(--blue)}.cld-info.b1{border-color:var(--green)}
+
+/* ════════════════════════════════════════════════════
+   SECTION 1 — ILLUSION
+════════════════════════════════════════════════════ */
+#illusion{background:var(--s1)}
+
+/* absorption visual */
+.absorb-vis{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r12);padding:24px;margin-top:16px}
+.absorb-title{font-family:var(--mono);font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.absorb-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.absorb-label{font-family:var(--mono);font-size:11px;color:var(--tx2);width:120px;flex-shrink:0}
+.absorb-bar{height:28px;border-radius:var(--r4);display:flex;align-items:center;
+  padding:0 10px;font-family:var(--mono);font-size:11px;font-weight:500}
+.absorb-bar-re{background:#3fb95022;border:1px solid #3fb95060;color:var(--green)}
+.absorb-bar-demand{background:#e3b34122;border:1px solid #e3b34160;color:var(--amber)}
+.absorb-bar-fossil{background:#f8514922;border:1px solid #f8514960;color:var(--red)}
+.absorb-verdict{margin-top:14px;padding-top:14px;border-top:1px solid var(--b1);
+  font-size:13px;color:var(--tx2);display:flex;align-items:center;gap:8px}
+.absorb-num{font-family:var(--mono);font-size:24px;font-weight:600;color:var(--amber)}
+
+/* ════════════════════════════════════════════════════
+   SECTION 2 — TRIPLE DEPENDENCY
+════════════════════════════════════════════════════ */
+#dependency{background:var(--bg)}
+
+.dep-card{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r12);padding:22px;position:relative}
+.dep-badge{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:9px;
+  padding:2px 7px;border-radius:2px;text-transform:uppercase;letter-spacing:.08em}
+.dep-stat{font-family:var(--mono);font-size:28px;font-weight:600;letter-spacing:-.04em;margin:8px 0 2px}
+.dep-change{font-family:var(--mono);font-size:11px;margin-bottom:14px}
+.dep-label{font-size:12px;color:var(--tx2)}
+
+/* oil donut / visual */
+.oil-vis{display:flex;align-items:center;justify-content:center;gap:20px;padding:16px 0}
+.oil-blocks{display:flex;gap:4px;align-items:center}
+.oil-block{width:28px;height:38px;border-radius:var(--r4);border:1px solid}
+.oil-block-filled{background:#3fb95020;border-color:#3fb95060}
+.oil-block-empty{background:var(--s3);border-color:var(--b2);border-style:dashed}
+.oil-legend{font-family:var(--mono);font-size:10px;color:var(--tx2)}
+
+/* ════════════════════════════════════════════════════
+   SECTION 3 — SCENARIOS
+════════════════════════════════════════════════════ */
+#scenarios{background:var(--s1)}
+.sc-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.sc-tab{font-family:var(--mono);font-size:11px;padding:8px 18px;border-radius:var(--r8);
+  border:1px solid var(--b2);cursor:pointer;background:transparent;color:var(--tx2);
+  transition:all .2s;letter-spacing:.04em}
+.sc-tab:hover{border-color:var(--b3);color:var(--tx)}
+.sc-tab.active-bau{background:var(--redBg);border-color:var(--red);color:var(--red)}
+.sc-tab.active-pol{background:var(--blueBg);border-color:var(--blue);color:var(--blue)}
+.sc-tab.active-lb{background:var(--greenBg);border-color:var(--green);color:var(--green)}
+.sc-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.sc-sum-card{background:var(--s3);border-radius:var(--r8);padding:14px 16px;border:1px solid var(--b1)}
+.sc-sum-label{font-family:var(--mono);font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.sc-sum-val{font-family:var(--mono);font-size:20px;font-weight:600;letter-spacing:-.03em}
+.sc-sum-note{font-size:10px;color:var(--tx3);margin-top:3px}
+
+/* ════════════════════════════════════════════════════
+   SECTION 4 — METHODS
+════════════════════════════════════════════════════ */
+#methods{background:var(--bg)}
+
+/* OLS table */
+.ols-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
+.ols-table th{text-align:left;color:var(--tx3);font-weight:400;padding:6px 10px;
+  border-bottom:1px solid var(--b2);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.ols-table td{padding:8px 10px;border-bottom:1px solid var(--b1);color:var(--tx2)}
+.ols-table tr:last-child td{border-bottom:none}
+.ols-table td:first-child{color:var(--tx);font-size:10px}
+.sig{font-weight:500}
+.sig-3{color:var(--green)}.sig-2{color:var(--amber)}.sig-ns{color:var(--tx3)}
+
+/* honesty box */
+.honesty{background:var(--s2);border:1px solid var(--b2);border-radius:var(--r12);padding:22px 24px;margin-top:16px}
+.honesty-toggle{font-family:var(--mono);font-size:11px;color:var(--tx3);cursor:pointer;
+  display:flex;align-items:center;gap:8px;user-select:none;letter-spacing:.05em}
+.honesty-toggle svg{transition:transform .2s}
+.honesty-toggle.open svg{transform:rotate(90deg)}
+.honesty-body{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--b1)}
+.honesty-body.open{display:block}
+.honesty-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1);font-size:12px;color:var(--tx2)}
+.honesty-item:last-child{border-bottom:none}
+.honesty-item::before{content:'→';color:var(--amber);flex-shrink:0;font-family:var(--mono)}
+
+/* ════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════ */
+footer{border-top:1px solid var(--b1);padding:36px 28px;text-align:center}
+.footer-badge{font-family:var(--mono);font-size:10px;color:var(--tx3);letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:10px}
+.footer-title{font-family:var(--mono);font-size:13px;color:var(--amber);margin-bottom:6px;font-weight:500}
+.footer-note{font-size:11px;color:var(--tx3);max-width:600px;margin:0 auto;line-height:1.7}
+
+/* chart default dims */
+canvas{max-height:280px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand"><div class="nav-dot"></div>CONVERGENCE TRAP</div>
+  <div class="nav-links">
+    <a class="nav-link" href="#illusion">Illusion</a>
+    <a class="nav-link" href="#dependency">Dependency</a>
+    <a class="nav-link" href="#scenarios">Scenarios</a>
+    <a class="nav-link" href="#methods">Methods</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-line"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">OIL SHOCK HACK! 2026 · Track C: Post-Oil Futures Lab</div>
+    <h1 class="hero-headline">ตัวเลขพลังงานไทย<br>ดูดี — <em>แต่ซ่อนกับดักไว้</em></h1>
+    <p class="hero-sub">สัดส่วนพลังงานหมุนเวียนเพิ่มขึ้น ความเข้มข้นคาร์บอนลดลง แต่การพึ่งพาฟอสซิลกำลังลึกขึ้นพร้อมกัน <strong>3 ช่องทาง</strong> — สอดคล้องกับวิกฤต Hormuz 2026 ที่กำลังเกิดขึ้น</p>
+
+    <!-- COUNTERS -->
+    <div class="counter-grid">
+      <div class="ccard ccard-amber">
+        <div class="ccard-label">Absorption Ratio</div>
+        <div class="ccard-val c-amber"><span class="count" data-target="3.51" data-dec="2">0</span>×</div>
+        <div class="ccard-desc">ทุก 1 TWh ของ RE ที่เพิ่ม demand กลืนไป 3.51 TWh</div>
+      </div>
+      <div class="ccard ccard-red">
+        <div class="ccard-label">Gas Self-Sufficiency</div>
+        <div class="ccard-val c-red">98.6 → <span class="count" data-target="59.2" data-dec="1">0</span>%</div>
+        <div class="ccard-desc">ผลิตก๊าซเองได้ลดจาก 99% เหลือ 59% ใน 24 ปี</div>
+      </div>
+      <div class="ccard ccard-red">
+        <div class="ccard-label">P(Fossil ↑ by 2044)</div>
+        <div class="ccard-val c-red"><span class="count" data-target="100" data-dec="0">0</span>%</div>
+        <div class="ccard-desc">Monte Carlo N=5,000 — ทุก simulation ฟอสซิลเพิ่ม</div>
+      </div>
+      <div class="ccard ccard-green">
+        <div class="ccard-label">Modern RE Share</div>
+        <div class="ccard-val c-green">เพียง <span class="count" data-target="4.4" data-dec="1">0</span>%</div>
+        <div class="ccard-desc">Solar + Wind จริงๆ คิดเป็น 4.4% ของไฟฟ้าทั้งหมด</div>
+      </div>
+    </div>
+
+    <!-- CLD -->
+    <div class="cld-wrap reveal">
+      <div class="cld-header">
+        <span class="cld-title">CAUSAL LOOP DIAGRAM — 3 Feedback Loops</span>
+        <div class="cld-btns">
+          <button class="loop-btn loop-btn-R1" onclick="activateLoop('R1',this)">R1 ↺</button>
+          <button class="loop-btn loop-btn-R2" onclick="activateLoop('R2',this)">R2 ↺</button>
+          <button class="loop-btn loop-btn-B1" onclick="activateLoop('B1',this)">B1 ⊖</button>
+        </div>
+      </div>
+      <svg width="100%" viewBox="0 0 700 300" role="img">
+        <title>Causal Loop Diagram — Thailand Convergence Trap</title>
+        <defs>
+          <marker id="arH" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <!-- Arrows -->
+        <path id="a1" fill="none" stroke="#484f58" stroke-width="1.5" marker-end="url(#arH)" d="M 412,84 L 488,170"/>
+        <path id="a2" fill="none" stroke="#484f58" stroke-width="1.5" marker-end="url(#arH)" d="M 530,214 C 530,320 390,340 330,320 C 270,300 220,260 205,225"/>
+        <path id="a3" fill="none" stroke="#484f58" stroke-width="1.5" marker-end="url(#arH)" d="M 174,172 C 130,150 100,120 100,94 C 100,55 180,50 280,64"/>
+        <path id="a4" fill="none" stroke="#484f58" stroke-width="1.5" marker-end="url(#arH)" d="M 512,202 C 460,210 360,230 316,240"/>
+        <path id="a5" fill="none" stroke="#484f58" stroke-width="1.5" marker-end="url(#arH)" d="M 226,258 C 200,260 172,248 172,215"/>
+        <path id="a6" fill="none" stroke="#484f58" stroke-width="1.5" marker-end="url(#arH)" d="M 176,155 C 200,135 240,105 272,82"/>
+        <path id="a7" fill="none" stroke="#484f58" stroke-width="1.5" marker-end="url(#arH)" d="M 352,64 C 408,56 466,100 490,172"/>
+
+        <!-- Polarity labels -->
+        <text x="448" y="128" font-family="IBM Plex Mono" font-size="11" fill="#484f58">+</text>
+        <text x="400" y="345" font-family="IBM Plex Mono" font-size="11" fill="#484f58">+</text>
+        <text x="98" y="136" font-family="IBM Plex Mono" font-size="11" fill="#484f58">+</text>
+        <text x="378" y="232" font-family="IBM Plex Mono" font-size="11" fill="#484f58">+</text>
+        <text x="206" y="272" font-family="IBM Plex Mono" font-size="11" fill="#484f58">−</text>
+        <text x="172" y="122" font-family="IBM Plex Mono" font-size="11" fill="#484f58">+</text>
+        <text x="440" y="78" font-family="IBM Plex Mono" font-size="11" fill="#484f58">−</text>
+
+        <!-- Nodes -->
+        <g class="cld-node" onclick="activateLoop('R1',null)">
+          <rect x="276" y="48" width="136" height="40" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="0.8"/>
+          <text x="344" y="73" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" font-weight="500" fill="#e6edf3">Electricity Demand</text>
+        </g>
+        <g class="cld-node" onclick="activateLoop('R1',null)">
+          <rect x="490" y="178" width="100" height="40" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="0.8"/>
+          <text x="540" y="198" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" font-weight="500" fill="#e6edf3">Fossil Gap</text>
+          <text x="540" y="211" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#8b949e">energy deficit</text>
+        </g>
+        <g class="cld-node">
+          <rect x="228" y="240" width="88" height="40" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="0.8"/>
+          <text x="272" y="258" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" font-weight="500" fill="#e6edf3">Gas / LNG</text>
+          <text x="272" y="271" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#8b949e">dependency</text>
+        </g>
+        <g class="cld-node">
+          <rect x="96" y="155" width="88" height="40" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="0.8"/>
+          <text x="140" y="173" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" font-weight="500" fill="#e6edf3">RE Investment</text>
+          <text x="140" y="186" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#8b949e">capital drained</text>
+        </g>
+        <g class="cld-node">
+          <rect x="108" y="48" width="168" height="40" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="0.8"/>
+          <text x="192" y="73" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" font-weight="500" fill="#e6edf3">RE Addition Rate</text>
+        </g>
+
+        <!-- Loop Labels -->
+        <g style="cursor:pointer" onclick="activateLoop('R1',null)">
+          <circle cx="490" cy="130" r="20" fill="#e3b34115" stroke="#e3b34150" stroke-width="1.2"/>
+          <text x="490" y="126" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#e3b341">R1</text>
+          <text x="490" y="138" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e3b341">↺</text>
+        </g>
+        <g style="cursor:pointer" onclick="activateLoop('R2',null)">
+          <circle cx="340" cy="300" r="20" fill="#58a6ff15" stroke="#58a6ff50" stroke-width="1.2"/>
+          <text x="340" y="296" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#58a6ff">R2</text>
+          <text x="340" y="308" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#58a6ff">↺</text>
+        </g>
+        <g style="cursor:pointer" onclick="activateLoop('B1',null)">
+          <circle cx="192" cy="120" r="20" fill="#3fb95015" stroke="#3fb95050" stroke-width="1.2"/>
+          <text x="192" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#3fb950">B1</text>
+          <text x="192" y="128" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#3fb950">⊖</text>
+        </g>
+      </svg>
+      <div class="cld-info" id="cldInfo">
+        คลิก <strong>R1 / R2 / B1</strong> เพื่อดูว่าแต่ละ feedback loop ทำงานอย่างไร · Click a node or loop button to explore each mechanism
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 1: ILLUSION ════════════════════════════════════════ -->
+<section id="illusion">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-amber">The Illusion · ภาพลวงตา</div>
+      <h2 class="sec-title">ตัวเลขดูดีขึ้น<br>แต่ความจริงแย่ลง</h2>
+      <div class="insight insight-amber">
+        <div class="insight-label">Plain English</div>
+        <p>ถ้าดูแค่ "carbon intensity" ต่อหน่วยไฟฟ้า — ไทยดูเหมือนกำลัง transition ได้ดี แต่เพราะ demand โตเร็วมาก <strong>ปริมาณ CO₂ จริงๆ เพิ่มเป็นเกือบ 2 เท่าในช่วงเดียวกัน</strong> และ renewable 14.8% ที่บอก — เกือบครึ่งคือการเผาชีวมวล ไม่ใช่ solar หรือ wind</p>
+      </div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="panel">
+        <div class="panel-title">Carbon intensity vs. Absolute GHG emissions · 2000–2024</div>
+        <canvas id="chartCI"></canvas>
+        <div class="panel-note">CI (amber, gCO₂/kWh) ลดลง — แต่ GHG รวม (red, MtCO₂e) เพิ่มเป็น 2× · OLS GHG slope = +1.94 Mt/yr, p&lt;0.001</div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">RE composition — "14.8% renewable" คืออะไร · 2024</div>
+        <canvas id="chartRE"></canvas>
+        <div class="panel-note">Bioenergy (เผาชีวมวล) = 48.6% ของ RE · Solar+Wind จริงๆ = 4.4% ของไฟฟ้าทั้งหมดเท่านั้น</div>
+      </div>
+    </div>
+    <!-- Absorption visual -->
+    <div class="absorb-vis reveal" style="margin-top:16px">
+      <div class="absorb-title">Absorption Ratio — ทำไม Renewable ไม่แทนที่ Fossil ได้</div>
+      <div class="absorb-row">
+        <div class="absorb-label">RE added 2010–24</div>
+        <div class="absorb-bar absorb-bar-re" style="width:80px">+20.8 TWh</div>
+      </div>
+      <div class="absorb-row">
+        <div class="absorb-label">New demand (same period)</div>
+        <div class="absorb-bar absorb-bar-demand" style="width:282px">+73.1 TWh (3.51×)</div>
+      </div>
+      <div class="absorb-row">
+        <div class="absorb-label">Fossil electricity change</div>
+        <div class="absorb-bar absorb-bar-fossil" style="width:86px">+21.1 TWh ↑</div>
+      </div>
+      <div class="absorb-verdict">
+        <div class="absorb-num">3.51×</div>
+        <div>ทุก 1 TWh ที่ไทยเพิ่ม renewable &nbsp;→&nbsp; demand กลืนไป 3.51 TWh &nbsp;→&nbsp; <strong style="color:var(--red)">fossil ยังต้องเพิ่มอยู่ดี</strong><br>เทียบกับ transition success peers: ทุก 17/17 ประเทศมี ratio &lt; 1.0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 2: TRIPLE DEPENDENCY ═══════════════════════════════ -->
+<section id="dependency">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-red">Triple Dependency · 3 ช่องทางพร้อมกัน</div>
+      <h2 class="sec-title">3 ช่องทางแย่ลงพร้อมกัน<br>ไม่มีช่องทางไหนดีขึ้น</h2>
+      <div class="insight insight-red">
+        <div class="insight-label">Plain English</div>
+        <p>ปกติประเทศจะมีช่องทางพึ่งพาพลังงานนำเข้าแบบใดแบบหนึ่ง ไทยมีพร้อมกัน 3 ช่องทาง และ <strong>ทุกช่องทางแย่ลงพร้อมกัน</strong> — ไฟฟ้านำเข้า, ก๊าซธรรมชาติ, น้ำมัน มีแค่ 6 จาก 59 ประเทศในกลุ่มเดียวกันที่มี pattern แบบนี้</p>
+      </div>
+    </div>
+    <div class="grid-3 reveal">
+      <!-- EI card -->
+      <div class="dep-card">
+        <span class="dep-badge" style="background:var(--blueBg);color:var(--blue);border:1px solid #58a6ff40">Elec Import</span>
+        <div class="dep-label" style="margin-bottom:4px">Electricity import share</div>
+        <div class="dep-stat c-red">2.9 → 15.7%</div>
+        <div class="dep-change" style="color:var(--red)">+0.645 pp/yr · p&lt;0.001 ***</div>
+        <canvas id="chartEI" style="max-height:160px"></canvas>
+        <div class="panel-note" style="margin-top:8px">Break 2010 *** (slope ×6.7) · Break 2015 *** (slope ×4.0)</div>
+      </div>
+      <!-- Gas SS card -->
+      <div class="dep-card">
+        <span class="dep-badge" style="background:var(--amberBg);color:var(--amber);border:1px solid #e3b34140">Gas Field</span>
+        <div class="dep-label" style="margin-bottom:4px">Gas self-sufficiency</div>
+        <div class="dep-stat c-red">98.6 → 59.2%</div>
+        <div class="dep-change" style="color:var(--red)">−1.012 pp/yr · p&lt;0.001 ***</div>
+        <canvas id="chartGS" style="max-height:160px"></canvas>
+        <div class="panel-note" style="margin-top:8px">Break 2015 ** — Erawan/Bongkot fields declining · depletion 3.6× faster post-break</div>
+      </div>
+      <!-- Oil card -->
+      <div class="dep-card">
+        <span class="dep-badge" style="background:var(--redBg);color:var(--red);border:1px solid #f8514940">Oil</span>
+        <div class="dep-label" style="margin-bottom:4px">Oil self-sufficiency</div>
+        <div class="dep-stat c-red">21.8%</div>
+        <div class="dep-change" style="color:var(--tx3)">ผลิตได้แค่ 1 ใน 5 ของที่ใช้</div>
+        <div class="oil-vis">
+          <div>
+            <div class="oil-blocks">
+              <div class="oil-block oil-block-filled" title="22% produced locally"></div>
+              <div class="oil-block oil-block-empty" title="imported"></div>
+              <div class="oil-block oil-block-empty" title="imported"></div>
+              <div class="oil-block oil-block-empty" title="imported"></div>
+              <div class="oil-block oil-block-empty" title="imported"></div>
+            </div>
+            <div class="oil-legend" style="margin-top:8px">
+              <div>🟩 22% — ผลิตในประเทศ</div>
+              <div>⬜ 78% — นำเข้า (63% ตะวันออกกลาง)</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-note">วิกฤต Hormuz เม.ย. 2026: diesel +67%, LNG +125%, GDP −1-2%</div>
+      </div>
+    </div>
+    <!-- Triple illusion result -->
+    <div class="reveal" style="margin-top:16px;padding:18px 24px;background:var(--s2);border:1px solid var(--b1);border-radius:var(--r12);display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="font-family:var(--mono);font-size:36px;font-weight:600;color:var(--amber)">6/59</div>
+      <div>
+        <div style="font-weight:500;margin-bottom:3px">ประเทศที่มี pattern เดียวกับไทย (Triple Illusion Test)</div>
+        <div style="font-size:12px;color:var(--tx2)">ทดสอบ 59 ประเทศที่คล้ายกัน (GDP peers + Energy mix peers + Transition success + SEA) · 4 เงื่อนไขพร้อมกัน: oil SS&lt;40%, gas SS declining***, EI rising***, surface metric improving***</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 3: SCENARIOS ════════════════════════════════════════ -->
+<section id="scenarios">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-blue">System Dynamics · อนาคต 2024–2044</div>
+      <h2 class="sec-title">3 อนาคตที่เป็นไปได้</h2>
+      <div class="insight insight-blue">
+        <div class="insight-label">Plain English</div>
+        <p>เราสร้าง system dynamics model โดย calibrate จากข้อมูล 24 ปี — <strong>BAU: ฟอสซิลเพิ่มแน่นอน 100%</strong> · Policy push ไม่พอ เพราะ absorption ratio ยังเกิน 1.0 · ต้องทำทั้ง RE×7 และ ลด demand growth พร้อมกันถึงจะ "break the loop" ได้</p>
+      </div>
+    </div>
+
+    <div class="sc-tabs reveal">
+      <button class="sc-tab active-bau" id="tab-bau" onclick="switchScenario('bau')">📈 BAU — ไม่ทำอะไร</button>
+      <button class="sc-tab" id="tab-pol" onclick="switchScenario('pol')">📋 Policy Push — RE×3, demand −20%</button>
+      <button class="sc-tab" id="tab-lb"  onclick="switchScenario('lb')">✂️ Loop Break — RE×7, demand −45%</button>
+    </div>
+
+    <div class="panel reveal">
+      <div class="panel-title" id="scTitle">BAU — Business As Usual: ทุก simulation fossil เพิ่ม (P=100%, MC N=5,000)</div>
+      <canvas id="chartScenario"></canvas>
+      <div class="panel-note">Shaded band = Monte Carlo p5–p95 · Dashed line = 2024 baseline 169.9 TWh</div>
+    </div>
+
+    <div class="sc-summary reveal" id="scSummary">
+      <div class="sc-sum-card">
+        <div class="sc-sum-label">Fossil 2044</div>
+        <div class="sc-sum-val c-red" id="scFossil">195.1 TWh</div>
+        <div class="sc-sum-note">+25.2 TWh จาก 2024</div>
+      </div>
+      <div class="sc-sum-card">
+        <div class="sc-sum-label">Absorption Ratio</div>
+        <div class="sc-sum-val c-amber" id="scAbsorb">5.10×</div>
+        <div class="sc-sum-note">Trap still active — B1 overwhelmed</div>
+      </div>
+      <div class="sc-sum-card">
+        <div class="sc-sum-label">Status</div>
+        <div class="sc-sum-val c-red" id="scStatus">TRAP ACTIVE</div>
+        <div class="sc-sum-note" id="scNote">Requires &gt;1 intervention simultaneously</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 4: METHODS ════════════════════════════════════════== -->
+<section id="methods">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-gray">Statistical Evidence · 5 Methods</div>
+      <h2 class="sec-title">หลักฐานทางสถิติ</h2>
+      <p class="sec-sub">ทุก claim ผ่านการทดสอบหลายวิธี — OLS + Newey-West HAC, LMDI, Structural Breaks, Tapio, System Dynamics</p>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="panel">
+        <div class="panel-title">Method 3 · LMDI Decomposition — ทำไม GHG ยังขึ้น</div>
+        <canvas id="chartLMDI"></canvas>
+        <div class="panel-note">Activity (demand growth) = +81.3 MtCO₂ · Intensity (CI improvement) = −9.8 MtCO₂ · Ratio <strong style="color:var(--red)">8.3×</strong> — demand overwhelms all efficiency gains</div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Method 5 · Tapio Decoupling Index — ไม่มีปีไหน sustain</div>
+        <canvas id="chartTapio"></canvas>
+        <div class="panel-note"><span style="color:var(--red)">■</span> Neg. decoupling 35% · <span style="color:var(--amber)">■</span> Coupling 25% · <span style="color:var(--blue)">■</span> Weak 20% · <span style="color:var(--green)">■</span> Strong 20% · No sustained decoupling path</div>
+      </div>
+    </div>
+
+    <!-- OLS table -->
+    <div class="panel reveal" style="margin-top:16px">
+      <div class="panel-title" style="margin-bottom:16px">Method 2 · OLS + Newey-West HAC — Core Regression Results</div>
+      <table class="ols-table">
+        <thead>
+          <tr><th>Variable</th><th>Slope/yr</th><th>R²</th><th>NW p-value</th><th>Sig</th><th>2000→2024</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Electricity import share (%)</td><td style="color:var(--red)">+0.645</td><td>0.846</td><td>2.29e-07</td><td class="sig sig-3">***</td><td>2.87 → 15.67%</td></tr>
+          <tr><td>Gas self-sufficiency (%)</td><td style="color:var(--red)">−1.012</td><td>0.701</td><td>6.50e-05</td><td class="sig sig-3">***</td><td>98.6 → 59.2%</td></tr>
+          <tr><td>GHG emissions (MtCO₂e)</td><td style="color:var(--red)">+1.937</td><td>0.817</td><td>8.79e-06</td><td class="sig sig-3">***</td><td>58 → 111 Mt</td></tr>
+          <tr><td>Fossil share energy (%)</td><td style="color:var(--green)">−0.248</td><td>0.889</td><td>3.50e-08</td><td class="sig sig-3">***</td><td>97.6 → 92.6% ← illusion</td></tr>
+          <tr><td>Carbon intensity (gCO₂/kWh)</td><td style="color:var(--green)">−2.005</td><td>0.637</td><td>5.41e-04</td><td class="sig sig-3">***</td><td>607 → 555 ← illusion</td></tr>
+          <tr><td>Renewables share elec (%)</td><td style="color:var(--green)">+0.428</td><td>0.741</td><td>2.46e-05</td><td class="sig sig-3">***</td><td>6.7 → 14.8% ← illusion</td></tr>
+          <tr><td>Solar (2017-2024, N=8)</td><td style="color:var(--tx3)">+0.022</td><td>0.237</td><td>0.221</td><td class="sig sig-ns">ns</td><td>2.57 → 2.72% (stagnated)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Intellectual Honesty -->
+    <div class="honesty reveal">
+      <div class="honesty-toggle" onclick="toggleHonesty(this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="color:var(--amber);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em">Intellectual Honesty — สิ่งที่เราตัดออก และทำไม</span>
+      </div>
+      <div class="honesty-body" id="honestyBody">
+        <div class="honesty-item">Compound Dependency Rank (#1/59) — ตัดออก เพราะ bug ในการคำนวณ oil_ss ของ European countries (NaN → 0%) ทำให้ rank ผิด ผลจริงคือ rank #20</div>
+        <div class="honesty-item">Mahalanobis Distance — ตัดออก เพราะ bug เดียวกัน ทำให้ p-value ไม่ significant ในทุก 5 approaches ที่ทดสอบ</div>
+        <div class="honesty-item">Counterfactual CI Analysis — ตัดออก เพราะ Laos CI = 129 gCO₂/kWh &lt; Thailand CI = 555 → การนำเข้าไฟฟ้าจาก Laos ทำให้ CI ของไทย "ดีขึ้นจริงๆ" ไม่ใช่ illusion</div>
+        <div class="honesty-item">Gas share electricity regression — ตัดออก เพราะ slope (−0.243) ขัดแย้งกับ 2000→2024 direction จริง (64% → 68%) เนื่องจาก mid-period peak ที่ 75%</div>
+        <div class="honesty-item">Triple Illusion: 6/59 ประเทศผ่าน ไม่ใช่แค่ไทย — Denmark, Indonesia, Hungary, Slovakia, Greece ก็ผ่านด้วย แต่ modern RE ของ Denmark = 67% vs ไทย 4.4%</div>
+        <div class="honesty-item">GHG_elec absolute values — ไม่ใช้ เพราะ CI (Ember, lifecycle scope) &gt; Total GHG (Global Carbon Project, territorial scope) ต่างกัน methodology — ใช้แค่ decompose changes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:700px;margin:0 auto">
+    <div class="footer-badge">OIL SHOCK HACK! 2026 · Thailand Earth Day · 22 April 2569</div>
+    <div class="footer-title">The Convergence Trap — Thailand Post-Oil Futures Analysis</div>
+    <div class="footer-note">
+      Data: OWID Energy Data (primary, 2000–2024) · Ember (world context) ·
+      Methods: OLS + Newey-West HAC · LMDI-I Additive · PELT Structural Breaks ·
+      Tapio (2005) · Stock-Flow System Dynamics · Monte Carlo N=5,000 ·
+      Track C: Speculative Energies — scenario generation + system dynamics
+      <br><br>
+      <span style="color:var(--tx3)">6 bugs found and corrected during analysis. Full methodology and disclosures available in the GitHub repository.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════
+const YR = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
+const BIO   = [0.53,0.62,0.75,1.23,1.84,1.86,1.99,2.42,2.14,2.25,3.36,3.98,4.7,5.63,6.72,7.34,8.6,9.29,11.74,12.59,12.29,13.41,13.86,14.29,14.39];
+const HYDRO = [5.89,6.17,7.37,7.21,5.9,5.67,7.95,7.96,6.95,6.97,5.35,7.93,8.43,5.41,5.16,3.76,3.54,4.69,7.6,6.31,4.54,4.54,6.6,6.59,6.41];
+const SOLAR = [0,0,0,0,0,0,0.04,0.04,0.04,0.04,0.06,0.09,0.5,1.26,1.93,2.38,3.55,4.54,4.54,5.15,5.03,4.99,5.03,5.14,5.43];
+const WIND  = [0,0,0,0,0,0,0,0,0,0,0,0,0.02,0.35,0.4,0.33,0.38,1.11,1.64,3.67,3.22,3.53,2.99,3.74,3.38];
+const GHG   = [57.98,60.99,64.17,68.41,74.23,78.2,81.69,86.31,88.39,88.23,95.37,91.95,100.85,101.49,104.48,106.19,107.08,103.09,100.93,104.87,100.68,99.83,101.06,104.62,110.68];
+const CI    = [607,604,592,590,598,600,597,606,608,605,605,600,597,602,601,597,595,583,568,562,570,566,560,549,555];
+const EI    = [2.87,2.61,2.36,1.92,2.45,2.88,3.23,2.56,1.24,0.78,3.63,5.8,4.85,6.27,5.54,6.4,9.28,11.66,12.58,10.83,13.24,15.11,15.63,14.98,15.67];
+const GS    = [98.6,82.75,79.6,78.17,77.79,76.48,76.25,76.49,80.66,77.09,78.03,76.28,79.06,79.68,78.27,73.54,73.72,71.77,69.43,70.23,69.8,67.06,57.19,54.42,59.19];
+
+const SIM_YR = [2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041,2042,2043,2044];
+const BAU_F  = [169.9,171.8,173.7,175.6,177.5,179.4,181.3,183.2,185.1,187,188.9,190.8,191.6,192.4,193.1,193.7,193.6,193.8,193.8,194.5,195.1];
+const POL_F  = [169.9,169.6,169.3,169,168.7,168.4,168.1,167.8,167.5,167.2,166.9,166.6,165.3,164.3,163.2,162.2,161.2,161,160.4,159.2,158.4];
+const LB_F   = [169.9,165,160.1,155.2,150.3,145.4,140.5,135.6,130.7,125.8,120.9,116,111.1,106.2,101.3,96.4,91.5,86.6,82,77.2,72.3];
+const MC_LO  = [169.9,170.9,172,173,174,175,176.1,177.1,178.2,179.2,180.2,181.3,182.3,183.3,184.3,185.4,186.4,186.5,186.7,186.9,187.2];
+const MC_HI  = [169.9,172.7,175.4,178.2,180.9,183.7,186.4,189.2,191.9,194.7,197.4,200.2,200.2,200.5,201.2,201.5,201.7,202,202.4,202.7,203.1];
+
+const LMDI_YR  = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
+const LMDI_ACT = [3.25,4.4,4.22,5.37,4.22,4.22,2.96,0.6,-0.13,9.96,-0.46,8.88,1.41,2.42,3.61,4.91,1.08,1.89,3.29,-3.26,2.47,3.4,5.69,6.94];
+const LMDI_INT = [-0.31,-1.31,-0.2,0.98,0.2,-0.32,1.2,0.32,-0.44,0.08,-0.89,-0.49,0.88,-0.1,-0.78,-0.32,-2.42,-3.13,-1.14,1.69,-0.91,-1.22,-2.42,1.26];
+
+const TAPIO_YR = [2001,2002,2003,2004,2005,2006,2007,2008,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2021,2022];
+const TAPIO_D  = [1.745,0.922,0.981,1.446,1.407,0.975,1.133,1.889,1.149,-8.831,1.336,0.236,2.994,0.522,0.244,-0.892,-0.496,1.846,-0.54,0.466];
+
+// ═══════════════════════════════════════════════════════════════
+// CHART DEFAULTS
+// ═══════════════════════════════════════════════════════════════
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#21262d';
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+Chart.defaults.font.size = 10;
+const GRID = {color:'#1c2128',lineWidth:0.5};
+const TICK = {color:'#656d76',font:{size:9}};
+
+const TIP = {
+  backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,
+  titleColor:'#e6edf3',bodyColor:'#8b949e',padding:10,cornerRadius:4,
+  titleFont:{family:"'IBM Plex Mono'",size:11},bodyFont:{family:"'IBM Plex Mono'",size:10}
+};
+
+function baseOpts(yLabel=''){
+  return {responsive:true,maintainAspectRatio:true,animation:{duration:400},
+    plugins:{legend:{display:false},tooltip:TIP},
+    scales:{x:{grid:GRID,ticks:TICK,border:{color:'#21262d'}},
+            y:{grid:GRID,ticks:{...TICK,callback:v=>v+(yLabel?yLabel:'')},border:{color:'#21262d'}}}};
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CHART 1: CI vs GHG (dual axis)
+// ═══════════════════════════════════════════════════════════════
+new Chart(document.getElementById('chartCI'),{
+  type:'line',
+  data:{labels:YR,datasets:[
+    {label:'Carbon Intensity (gCO₂/kWh)',data:CI,borderColor:'#e3b341',borderWidth:2,
+     pointRadius:0,fill:false,tension:.3,yAxisID:'y'},
+    {label:'GHG Emissions (MtCO₂e)',data:GHG,borderColor:'#f85149',borderWidth:2,
+     pointRadius:0,fill:false,tension:.3,yAxisID:'y1'},
+  ]},
+  options:{...baseOpts(),
+    plugins:{...baseOpts().plugins,
+      legend:{display:true,position:'bottom',labels:{boxWidth:12,padding:12,
+        color:'#8b949e',font:{family:"'IBM Plex Mono'",size:9}}},
+      tooltip:{...TIP,callbacks:{label:ctx=>ctx.datasetIndex===0
+        ?`CI: ${ctx.raw.toFixed(0)} gCO₂/kWh`:`GHG: ${ctx.raw.toFixed(1)} MtCO₂e`}}},
+    scales:{
+      x:{grid:GRID,ticks:{...TICK,maxRotation:0,callback:(_,i)=>YR[i]%5===0?YR[i]:''},border:{color:'#21262d'}},
+      y:{grid:GRID,ticks:{...TICK,callback:v=>v+''},title:{display:true,text:'gCO₂/kWh',color:'#e3b341',font:{size:9}},border:{color:'#21262d'},position:'left'},
+      y1:{grid:{display:false},ticks:{...TICK,callback:v=>v+' Mt'},title:{display:true,text:'MtCO₂e',color:'#f85149',font:{size:9}},border:{color:'#21262d'},position:'right'}
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// CHART 2: RE Stacked Area by Source
+// ═══════════════════════════════════════════════════════════════
+new Chart(document.getElementById('chartRE'),{
+  type:'line',
+  data:{labels:YR,datasets:[
+    {label:'Bioenergy (combustion)',data:BIO,borderColor:'#e3b34100',backgroundColor:'#e3b34155',fill:true,tension:.3,pointRadius:0},
+    {label:'Hydro',data:HYDRO,borderColor:'#58a6ff00',backgroundColor:'#58a6ff44',fill:true,tension:.3,pointRadius:0},
+    {label:'Solar',data:SOLAR,borderColor:'#ffd60000',backgroundColor:'#ffd60055',fill:true,tension:.3,pointRadius:0},
+    {label:'Wind',data:WIND,borderColor:'#3fb95000',backgroundColor:'#3fb95055',fill:true,tension:.3,pointRadius:0},
+  ]},
+  options:{...baseOpts('TWh'),
+    plugins:{...baseOpts().plugins,
+      legend:{display:true,position:'bottom',labels:{boxWidth:12,padding:10,color:'#8b949e',font:{family:"'IBM Plex Mono'",size:9}}}},
+    scales:{
+      x:{stacked:true,grid:GRID,ticks:{...TICK,maxRotation:0,callback:(_,i)=>YR[i]%5===0?YR[i]:''},border:{color:'#21262d'}},
+      y:{stacked:true,grid:GRID,ticks:{...TICK,callback:v=>v+' TWh'},border:{color:'#21262d'}}
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// CHART 3: EI with break markers
+// ═══════════════════════════════════════════════════════════════
+new Chart(document.getElementById('chartEI'),{
+  type:'line',
+  data:{labels:YR,datasets:[
+    {data:EI,borderColor:'#58a6ff',borderWidth:2,pointRadius:YR.map(y=>y===2010||y===2015?5:2),
+     pointBackgroundColor:YR.map(y=>y===2010||y===2015?'#f85149':'#58a6ff'),
+     fill:true,backgroundColor:'#58a6ff10',tension:.3}
+  ]},
+  options:{...baseOpts('%'),
+    scales:{
+      x:{grid:GRID,ticks:{...TICK,maxRotation:45,callback:(_,i)=>YR[i]%5===0?YR[i]:''},border:{color:'#21262d'}},
+      y:{grid:GRID,ticks:{...TICK,callback:v=>v+'%'},min:0,max:20,border:{color:'#21262d'}}
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// CHART 4: Gas SS with break
+// ═══════════════════════════════════════════════════════════════
+new Chart(document.getElementById('chartGS'),{
+  type:'line',
+  data:{labels:YR,datasets:[
+    {data:GS,borderColor:'#e3b341',borderWidth:2,pointRadius:YR.map(y=>y===2015?5:2),
+     pointBackgroundColor:YR.map(y=>y===2015?'#f85149':'#e3b341'),
+     fill:true,backgroundColor:'#e3b34110',tension:.3}
+  ]},
+  options:{...baseOpts('%'),
+    scales:{
+      x:{grid:GRID,ticks:{...TICK,maxRotation:45,callback:(_,i)=>YR[i]%5===0?YR[i]:''},border:{color:'#21262d'}},
+      y:{grid:GRID,ticks:{...TICK,callback:v=>v+'%'},min:40,max:105,border:{color:'#21262d'}}
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// CHART 5: Scenario (toggle)
+// ═══════════════════════════════════════════════════════════════
+let scChart = new Chart(document.getElementById('chartScenario'),{
+  type:'line',
+  data:{labels:SIM_YR,datasets:[
+    {label:'MC band hi',data:MC_HI,borderWidth:0,pointRadius:0,fill:'+1',backgroundColor:'rgba(248,81,73,0.12)',tension:.3},
+    {label:'MC band lo',data:MC_LO,borderWidth:0,pointRadius:0,fill:false,backgroundColor:'rgba(248,81,73,0.12)',tension:.3},
+    {label:'Scenario',data:BAU_F,borderColor:'#f85149',borderWidth:2.5,pointRadius:0,fill:false,tension:.3},
+    {label:'2024 baseline',data:SIM_YR.map(()=>169.9),borderColor:'#484f58',borderWidth:1,pointRadius:0,fill:false,borderDash:[3,4]},
+  ]},
+  options:{...baseOpts('TWh'),
+    scales:{
+      x:{grid:GRID,ticks:TICK,border:{color:'#21262d'}},
+      y:{grid:GRID,ticks:{...TICK,callback:v=>v+' TWh'},min:50,max:215,border:{color:'#21262d'}}
+    }
+  }
+});
+
+const SC_CFG = {
+  bau:{data:BAU_F,color:'#f85149',fossil:'195.1 TWh',absorb:'5.10×',
+       status:'TRAP ACTIVE',statusC:'c-red',note:'P(fossil ↑) = 100% · MC p50=195 TWh',
+       title:'BAU — Business As Usual: ทุก simulation fossil เพิ่ม (P=100%, MC N=5,000)',
+       tabClass:'active-bau'},
+  pol:{data:POL_F,color:'#58a6ff',fossil:'158.4 TWh',absorb:'1.36×',
+       status:'STILL TRAPPED',statusC:'c-amber',note:'Absorption ratio 1.36× > 1 — ยังไม่ break',
+       title:'Policy Push (RE×3, demand −20%): fossil ลด แต่ absorption ratio ยัง > 1.0',
+       tabClass:'active-pol'},
+  lb:{data:LB_F,color:'#3fb950',fossil:'72.3 TWh',absorb:'0.40×',
+      status:'LOOP BROKEN',statusC:'c-green',note:'Absorption 0.40× < 1 — trap broken · ต้อง RE×7 + demand −45%',
+      title:'Loop Break (RE×7, demand −45%): absorption 0.40× < 1 — trap broken',
+      tabClass:'active-lb'},
+};
+
+function switchScenario(sc){
+  const cfg=SC_CFG[sc];
+  scChart.data.datasets[2].data=[...cfg.data];
+  scChart.data.datasets[2].borderColor=cfg.color;
+  scChart.data.datasets[0].backgroundColor=cfg.color+'20';
+  // reset MC band for non-BAU
+  if(sc!=='bau'){
+    scChart.data.datasets[0].data=cfg.data;
+    scChart.data.datasets[1].data=cfg.data;
+  } else {
+    scChart.data.datasets[0].data=MC_HI;
+    scChart.data.datasets[1].data=MC_LO;
+  }
+  scChart.update();
+  document.getElementById('scTitle').textContent=cfg.title;
+  document.getElementById('scFossil').textContent=cfg.fossil;
+  document.getElementById('scAbsorb').textContent=cfg.absorb;
+  const sv=document.getElementById('scStatus');
+  sv.textContent=cfg.status; sv.className='sc-sum-val '+cfg.statusC;
+  document.getElementById('scNote').textContent=cfg.note;
+  ['bau','pol','lb'].forEach(k=>{
+    document.getElementById('tab-'+k).className='sc-tab'+(k===sc?' '+SC_CFG[k].tabClass:'');
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CHART 6: LMDI
+// ═══════════════════════════════════════════════════════════════
+new Chart(document.getElementById('chartLMDI'),{
+  type:'bar',
+  data:{labels:LMDI_YR,datasets:[
+    {label:'Activity (demand growth)',data:LMDI_ACT,backgroundColor:'rgba(227,179,65,0.75)',borderColor:'#e3b341',borderWidth:1,borderRadius:2},
+    {label:'Intensity (CI improve)',data:LMDI_INT,backgroundColor:'rgba(88,166,255,0.75)',borderColor:'#58a6ff',borderWidth:1,borderRadius:2},
+  ]},
+  options:{...baseOpts('Mt'),
+    plugins:{...baseOpts().plugins,
+      legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:10,color:'#8b949e',font:{family:"'IBM Plex Mono'",size:9}}},
+      tooltip:{...TIP,callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.raw>0?'+':''}${ctx.raw.toFixed(2)} MtCO₂`}}},
+    scales:{
+      x:{grid:GRID,ticks:{...TICK,maxRotation:45,callback:(_,i)=>LMDI_YR[i]%4===1?LMDI_YR[i]:''},border:{color:'#21262d'}},
+      y:{grid:GRID,ticks:{...TICK,callback:v=>(v>0?'+':'')+v+' Mt'},border:{color:'#21262d'}}
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// CHART 7: Tapio
+// ═══════════════════════════════════════════════════════════════
+function tapioColor(d){
+  if(d===null)return '#484f58';
+  if(d<0)return '#3fb950';if(d<0.8)return '#58a6ff';if(d<=1.2)return '#e3b341';return '#f85149';
+}
+const tapD=TAPIO_D.map(d=>Math.max(-3,Math.min(4,d)));
+new Chart(document.getElementById('chartTapio'),{
+  type:'bar',
+  data:{labels:TAPIO_YR,datasets:[{
+    data:tapD,backgroundColor:tapD.map((_,i)=>tapioColor(TAPIO_D[i])+'bb'),
+    borderColor:tapD.map((_,i)=>tapioColor(TAPIO_D[i])),borderWidth:1,borderRadius:2
+  }]},
+  options:{...baseOpts(''),
+    plugins:{...baseOpts().plugins,
+      tooltip:{...TIP,callbacks:{label:ctx=>`δ = ${TAPIO_D[ctx.dataIndex].toFixed(3)}`}}},
+    scales:{
+      x:{grid:GRID,ticks:{...TICK,maxRotation:45},border:{color:'#21262d'}},
+      y:{grid:GRID,min:-3,max:4,ticks:{...TICK,callback:v=>v.toFixed(1)},border:{color:'#21262d'}}
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// COUNTER ANIMATION
+// ═══════════════════════════════════════════════════════════════
+function animateCounters(){
+  document.querySelectorAll('.count').forEach(el=>{
+    const target=parseFloat(el.dataset.target);
+    const dec=parseInt(el.dataset.dec||0);
+    const dur=1500; const start=performance.now();
+    function step(now){
+      const p=Math.min((now-start)/dur,1);
+      const ease=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+      el.textContent=(target*ease).toFixed(dec);
+      if(p<1)requestAnimationFrame(step);else el.textContent=target.toFixed(dec);
+    }
+    requestAnimationFrame(step);
+  });
+}
+window.addEventListener('load',()=>setTimeout(animateCounters,300));
+
+// ═══════════════════════════════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════════════════════════════
+const ro=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}});
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ═══════════════════════════════════════════════════════════════
+// CLD INTERACTIVE
+// ═══════════════════════════════════════════════════════════════
+const CLD_DATA={
+  R1:{arrows:['a1','a2','a3'],color:'#e3b341',cls:'r1',
+    text:'<strong style="color:#e3b341">R1 — Demand-Fossil Reinforcing Loop</strong><br>Demand โต → Fossil gap กว้างขึ้น → Infrastructure ถูก commit กับ fossil → ยิ่ง decouple ยาก → Demand โตต่อ <span style="color:#656d76;font-size:11px">· Data: demand +5.37 TWh/yr; fossil electricity grew +21.1 TWh even while RE added +20.8 TWh (2010–2024)</span>'},
+  R2:{arrows:['a4','a5','a6'],color:'#58a6ff',cls:'r2',
+    text:'<strong style="color:#58a6ff">R2 — Gas Depletion Reinforcing Loop</strong><br>Fossil gap → ก๊าซในอ่าวไทยหมดเร็ว → ต้องนำเข้า LNG ราคาแพง → capital drain → RE investment น้อยลง → Fossil gap ยิ่งกว้าง <span style="color:#656d76;font-size:11px">· Data: gas SS −1.01pp/yr, p&lt;0.001 (98.6% → 59.2%)</span>'},
+  B1:{arrows:['a6','a7'],color:'#3fb950',cls:'b1',
+    text:'<strong style="color:#3fb950">B1 — RE Displacement Balancing Loop (overwhelmed)</strong><br>RE addition → fossil gap เล็กลงบ้าง → แรงกดดันลด → investment ไม่เร่ง → RE เพิ่มช้า — <strong style="color:#f85149">แต่ absorption ratio = 3.51× ทำให้ R1+R2 ชนะเสมอ</strong> · 2000–2024 ทุก sub-period fossil electricity เพิ่ม'},
+};
+let curLoop=null;
+const ALL_ARROWS=['a1','a2','a3','a4','a5','a6','a7'];
+function resetArrows(){ALL_ARROWS.forEach(id=>{const el=document.getElementById(id);if(el){el.style.stroke='';el.style.strokeWidth='';}})}
+function activateLoop(id,btn){
+  if(curLoop===id){curLoop=null;resetArrows();document.querySelectorAll('.loop-btn').forEach(b=>b.classList.remove('active'));document.getElementById('cldInfo').innerHTML='คลิก <strong>R1 / R2 / B1</strong> เพื่อดูว่าแต่ละ feedback loop ทำงานอย่างไร';document.getElementById('cldInfo').className='cld-info';return;}
+  curLoop=id;resetArrows();
+  document.querySelectorAll('.loop-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  const d=CLD_DATA[id];
+  d.arrows.forEach(a=>{const el=document.getElementById(a);if(el){el.style.stroke=d.color;el.style.strokeWidth='2.5';}});
+  const info=document.getElementById('cldInfo');
+  info.innerHTML=d.text;info.className='cld-info '+d.cls;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTELLECTUAL HONESTY TOGGLE
+// ═══════════════════════════════════════════════════════════════
+function toggleHonesty(el){
+  el.classList.toggle('open');
+  document.getElementById('honestyBody').classList.toggle('open');
+}
+</script>
+</body>
+</html>
