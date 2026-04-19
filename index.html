@@ -264,10 +264,10 @@ canvas{display:block}
   <div class="nav-brand"><div class="nav-dot"></div>CONVERGENCE TRAP</div>
   <span class="nav-tag">OIL SHOCK HACK! 2026</span>
   <div class="nav-links">
-    <a class="nav-link" href="#illusion">Illusion</a>
+    <a class="nav-link" href="#datasets">Data</a><a class="nav-link" href="#illusion">Illusion</a>
     <a class="nav-link" href="#dependency">Dependency</a>
     <a class="nav-link" href="#scenarios">Scenarios</a>
-    <a class="nav-link" href="#methods">Methods</a>
+    <a class="nav-link" href="#benchmark">Benchmark</a><a class="nav-link" href="#innovation">Innovation</a><a class="nav-link" href="#methods">Methods</a>
   </div>
 </nav>
 
@@ -390,6 +390,112 @@ canvas{display:block}
   </div>
 </section>
 
+
+<!-- ═══ DATASETS ═══════════════════════════════════════════════ -->
+<section id="datasets" style="background:var(--s1)">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-blue">Data Sources · แหล่งข้อมูล</div>
+      <h2 class="sec-title">Dataset ที่ใช้ในโปรเจกต์นี้</h2>
+      <p class="sec-sub" style="color:#c9d1d9">ใช้เฉพาะ 2 datasets ที่ได้รับอนุญาตตามกฎของการแข่งขัน ทุก statistical claim มาจาก OWID เป็น primary source เพื่อให้ consistency ของ definition และ methodology</p>
+    </div>
+    <div class="grid-2 reveal" style="grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+
+      <div class="panel" style="border-top:3px solid var(--amber)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+          <div>
+            <div class="chip chip-amber" style="margin-bottom:8px">PRIMARY · ทุก Statistical Claim</div>
+            <div style="font-size:18px;font-weight:600;color:var(--tx)">OWID Energy Data</div>
+            <div style="font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3);margin-top:4px">Our World in Data · Oxford University</div>
+          </div>
+          <a href="https://github.com/owid/energy-data/" target="_blank"
+             style="font-family:'IBM Plex Mono';font-size:9px;color:var(--amber);text-decoration:none;
+             border:1px solid #e3b34145;padding:4px 10px;border-radius:4px;white-space:nowrap">
+            GitHub ↗
+          </a>
+        </div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75;margin-bottom:14px">
+          ชุดข้อมูลพลังงานที่ครอบคลุมที่สุดที่เปิดให้ใช้งานฟรี รวบรวมจาก BP Statistical Review, Ember, IEA, และ EIA โดย OWID team ที่ Oxford ทุกตัวแปรผ่านการตรวจสอบและ standardize definition ระหว่างประเทศ
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">ช่วงเวลา</div>
+            <div style="font-size:13px;color:#c9d1d9">1900 – 2024</div>
+          </div>
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Coverage</div>
+            <div style="font-size:13px;color:#c9d1d9">220 countries × 130 variables</div>
+          </div>
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">เราใช้ทำอะไร</div>
+            <div style="font-size:12px;color:#c9d1d9">OLS · LMDI · PELT · Tapio · Monte Carlo · Triple Illusion Test</div>
+          </div>
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">ตัวแปรหลักที่ใช้</div>
+            <div style="font-size:12px;color:#c9d1d9">fossil_electricity, renewables_electricity, electricity_demand, gas_production/consumption, net_elec_imports_share_demand, greenhouse_gas_emissions, carbon_intensity_elec</div>
+          </div>
+        </div>
+        <div style="background:#f8514910;border:1px solid #f8514930;border-radius:6px;padding:12px 14px">
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">ข้อจำกัดและวิธีแก้</div>
+          <div style="font-size:12px;color:#c9d1d9;line-height:1.7">
+            <strong style="color:var(--tx)">ปัญหา:</strong> gas_production มี missing values บางปี ถ้า derive gas_ss หลัง dropna จะทำให้ค่าหายไป<br>
+            <strong style="color:var(--tx)">วิธีแก้:</strong> compute gas_ss ก่อน dropna เสมอ (Bug #1 ที่พบและแก้ไปแล้ว)<br>
+            <strong style="color:var(--tx)">ปัญหา:</strong> fossil_electricity ≠ demand − renewables เพราะ demand รวม imports<br>
+            <strong style="color:var(--tx)">วิธีแก้:</strong> ใช้ fossil_electricity column โดยตรง ไม่ derive (Bug #2)
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="border-top:3px solid var(--blue)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+          <div>
+            <div class="chip chip-blue" style="margin-bottom:8px">CONTEXTUAL · World Aggregate Only</div>
+            <div style="font-size:18px;font-weight:600;color:var(--tx)">Ember Electricity Data</div>
+            <div style="font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3);margin-top:4px">Ember Climate · London</div>
+          </div>
+          <a href="https://ember-energy.org/data/yearly-electricity-data/" target="_blank"
+             style="font-family:'IBM Plex Mono';font-size:9px;color:var(--blue);text-decoration:none;
+             border:1px solid #58a6ff45;padding:4px 10px;border-radius:4px;white-space:nowrap">
+            Dataset ↗
+          </a>
+        </div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75;margin-bottom:14px">
+          Ember เป็นองค์กรข้อมูลพลังงานจากลอนดอน เผยแพร่ข้อมูลไฟฟ้ารายเดือนและรายปีระดับโลก ใช้เป็น context สำหรับ global trends เท่านั้น ไม่ใช้สำหรับ statistical claim เพราะไฟล์ที่เราได้รับเป็น world aggregate ไม่ใช่ country-level
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">ช่วงเวลา</div>
+            <div style="font-size:13px;color:#c9d1d9">2000 – 2024 (monthly)</div>
+          </div>
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Coverage</div>
+            <div style="font-size:13px;color:#c9d1d9">World aggregate + country (separate)</div>
+          </div>
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">เราใช้ทำอะไร</div>
+            <div style="font-size:12px;color:#c9d1d9">Global electricity mix trends · carbon intensity scope clarification</div>
+          </div>
+          <div style="background:var(--s3);border-radius:6px;padding:10px 12px;border:1px solid var(--b1)">
+            <div style="font-family:'IBM Plex Mono';font-size:8px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">ตัวแปรหลัก</div>
+            <div style="font-size:12px;color:#c9d1d9">generation by source, demand, capacity, emissions intensity — world level</div>
+          </div>
+        </div>
+        <div style="background:#58a6ff10;border:1px solid #58a6ff30;border-radius:6px;padding:12px 14px">
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">ข้อจำกัดสำคัญ</div>
+          <div style="font-size:12px;color:#c9d1d9;line-height:1.7">
+            <strong style="color:var(--tx)">ปัญหา:</strong> Ember CI ใช้ lifecycle/upstream scope ≠ GCP territorial scope ของ OWID GHG<br>
+            <strong style="color:var(--tx)">ผลกระทบ:</strong> D × CI_ember เกิน GHG_OWID ในทุกปี ทำให้ LMDI absolute values ไม่ match<br>
+            <strong style="color:var(--tx)">วิธีแก้:</strong> รายงาน LMDI เฉพาะ changes ไม่ใช่ absolute values (Bug #8)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="insight insight-amber reveal">
+      <div class="insight-label">ทำไมถึงไม่ใช้ EIA หรือ DOEB</div>
+      <p>เราเข้าถึง EIA Open Data และ DOEB Open Data แล้ว แต่ OWID รวบรวมข้อมูลจากแหล่งเดียวกัน (รวมถึง EIA) พร้อมกับ standardize definitions ระหว่างประเทศเรียบร้อยแล้ว การใช้หลายแหล่งพร้อมกันจะทำให้เกิด definition mismatch เช่น "gas consumption" อาจนิยามต่างกันใน DOEB vs OWID การใช้ OWID เป็น primary source เดียวเพิ่ม <strong>internal consistency</strong> และลด risk ของ spurious cross-source comparisons</p>
+    </div>
+  </div>
+</section>
 <!-- ═══ ILLUSION ═══════════════════════════════════════════════════ -->
 <section id="illusion" style="background:var(--s1)">
   <div class="container">
@@ -702,6 +808,484 @@ canvas{display:block}
     </div>
   </div>
 </section>
+
+
+<!-- ═══ BENCHMARK ═══════════════════════════════════════════════ -->
+<section id="benchmark" style="background:var(--bg)">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-purple">59 Countries Benchmark · การเลือกกลุ่มตัวอย่าง</div>
+      <h2 class="sec-title">ทำไมถึงเลือก<br>ประเทศเหล่านี้</h2>
+      <p class="sec-sub" style="color:#c9d1d9">กลุ่มประเทศถูกกำหนดด้วย rule-based criteria <strong style="color:var(--tx)">ก่อน</strong>รัน Triple Illusion Test — ไม่ใช่หลังจากดูผล เพื่อป้องกัน p-hacking</p>
+    </div>
+
+    <!-- Why these groups -->
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px" class="reveal">
+      <div class="panel" style="border-left:3px solid #7b92c9">
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#7b92c9;margin-bottom:8px;letter-spacing:.08em">GDP PEERS · 20 COUNTRIES</div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">GDP per capita ±40% ของไทย (~$15,671 PPP 2022) แบ่ง <strong style="color:var(--tx)">10 ประเทศ East/South/SEA</strong> และ <strong style="color:var(--tx)">10 ประเทศ Western Hemisphere/Central Asia</strong> เพื่อป้องกัน geographic bias ที่จะทำให้กลุ่มมีแต่ประเทศในภูมิภาคเดียวกัน เหตุที่เลือก 20: ให้กลุ่มใหญ่พอที่ Triple Illusion Test จะมี statistical power แต่ไม่ใหญ่เกินไปจนรวมประเทศที่ไม่เกี่ยวข้อง</div>
+      </div>
+      <div class="panel" style="border-left:3px solid #f4845f">
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4845f;margin-bottom:8px;letter-spacing:.08em">ENERGY MIX PEERS · 20 COUNTRIES</div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่มี fossil_share_electricity และ natural gas dominance ใกล้เคียงไทยปี 2022 ที่สุด เลือก 20 เพื่อ balance กับ GDP group ประเทศใน group นี้จะ challenge ว่าไทยผิดปกติจริงหรือแค่เป็นผลของโครงสร้างพลังงานที่คล้ายกัน</div>
+      </div>
+      <div class="panel" style="border-left:3px solid #e879a0">
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#e879a0;margin-bottom:8px;letter-spacing:.08em">TRANSITION SUCCESS · 18 COUNTRIES</div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่ลด fossil_share_energy ≥10 percentage points ระหว่างปี 2003–2023 โดยเริ่มจาก &gt;40% ขนาด 18 มาจากจำนวนประเทศที่ตรงเกณฑ์จริงๆ ไม่ใช่การตั้งเป้า กลุ่มนี้สำคัญที่สุดในการ validate absorption ratio เพราะ <strong style="color:var(--tx)">17/17 มี absorption &lt;1.0</strong></div>
+      </div>
+      <div class="panel" style="border-left:3px solid #f4bc72">
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4bc72;margin-bottom:8px;letter-spacing:.08em">SEA CONTEXT · 8 COUNTRIES</div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศ ASEAN ทั้งหมด รวม Laos (แหล่ง electricity import หลักของไทย) ขนาด 8 ตรงกับจำนวน SEA member states ที่มีข้อมูลใน OWID ครบ ไม่มีการ filter เพิ่มเติม</div>
+      </div>
+    </div>
+
+    <!-- Why NOT others -->
+    <div class="insight insight-blue reveal" style="margin-bottom:20px">
+      <div class="insight-label">ทำไมถึงไม่เลือกประเทศนอกกลุ่มนี้</div>
+      <p>ประเทศที่ไม่ถูกเลือกมีเหตุผลที่ชัดเจน: ประเทศ high-income ที่ GDP สูงกว่าไทย 2× เช่น Singapore, UAE, Qatar จะทำให้ cost-of-transition comparison บิดเบือน ประเทศที่ไม่มีข้อมูล gas หรือ oil ครบ 20 ปีจะทำให้ Triple Illusion Test ไม่สามารถรันได้ครบทุก condition ประเทศ landlocked ที่ไม่มี seaborne LNG exposure จะไม่ตอบ research question เรื่อง Hormuz vulnerability เส้นแบ่งทุกอย่างถูกวางก่อนดูผล: ±40% GDP, ≥10pp fossil reduction, ASEAN membership</p>
+    </div>
+
+    <!-- Overlap explanation -->
+    <div class="panel reveal" style="margin-bottom:20px">
+      <div class="panel-title" style="margin-bottom:10px;color:#c9d1d9">Overlapping Countries — เหตุที่บางประเทศอยู่ในหลาย group</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:12px">
+        <div style="background:var(--s3);border-radius:6px;padding:10px;border-left:3px solid #3fb950">
+          <strong style="color:#3fb950">Malaysia</strong> <span style="color:#8b949e;font-family:IBM Plex Mono;font-size:9px">Energy Peer + SEA Context</span><br>
+          <span style="color:#c9d1d9">โครงสร้างพลังงานใกล้เคียงไทยมาก (gas 40%+) และเป็นประเทศเพื่อนบ้านใน SEA ต้องรวมทั้งสอง dimension</span>
+        </div>
+        <div style="background:var(--s3);border-radius:6px;padding:10px;border-left:3px solid #3fb950">
+          <strong style="color:#3fb950">South Korea</strong> <span style="color:#8b949e;font-family:IBM Plex Mono;font-size:9px">Energy Peer + Transition Success</span><br>
+          <span style="color:#c9d1d9">LNG-heavy grid ใกล้เคียงไทย และยังลด fossil share ≥10pp ทำให้เป็น test case สำคัญ</span>
+        </div>
+        <div style="background:var(--s3);border-radius:6px;padding:10px;border-left:3px solid #3fb950">
+          <strong style="color:#3fb950">India</strong> <span style="color:#8b949e;font-family:IBM Plex Mono;font-size:9px">Energy Peer + Transition Success</span><br>
+          <span style="color:#c9d1d9">Coal/gas dominant profile ใกล้เคียงไทย และ fossil share ลดลงพร้อมกับ solar boom ขนาดใหญ่</span>
+        </div>
+        <div style="background:var(--s3);border-radius:6px;padding:10px;border-left:3px solid #3fb950">
+          <strong style="color:#3fb950">Netherlands</strong> <span style="color:#8b949e;font-family:IBM Plex Mono;font-size:9px">Energy Peer + Transition Success</span><br>
+          <span style="color:#c9d1d9">เคยเป็น gas exporter ใหญ่ แต่ gas field หมด คล้าย trajectory ของไทย และลด fossil ≥10pp</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3)">
+        Total unique: 1 + 16 + 1 + 3 + 20 + 15 + 7 = 63 countries (reported as ~59 ในเอกสาร เนื่องจาก data completeness threshold ที่แต่ละประเทศต้องมีข้อมูลครบ 20+ ปีสำหรับทุก condition)
+      </div>
+    </div>
+
+    <!-- World Map -->
+    <div class="panel reveal" id="mapPanel">
+      <div class="panel-title" style="margin-bottom:4px;color:#c9d1d9">Benchmark Countries — World Map by Selection Criteria</div>
+      <div style="font-size:11px;color:var(--tx3);margin-bottom:10px;font-family:'IBM Plex Mono'">Hover บนประเทศเพื่อดูเหตุผลที่เลือก · Thailand (THA) = Target</div>
+      <div id="worldMap" style="width:100%;height:400px;border-radius:8px;overflow:hidden"></div>
+    </div>
+
+    <!-- Country List -->
+    <div class="reveal" style="margin-top:16px">
+      <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--tx3);margin-bottom:12px;letter-spacing:.05em">
+        COMPLETE LIST — ทุกประเทศพร้อมเหตุผล (hover card เพื่อดูรายละเอียด)
+      </div>
+      <div id="countryList"><div class="cg-section"><div class="cg-header" style="border-left:3px solid #ff4444"><span class="cg-swatch" style="background:#ff4444"></span><strong style="color:#e6edf3">Target</strong> <span style="color:#8b949e;font-size:11px">(1 countries)</span></div><div class="cg-list"><div class="cg-item" title="ประเทศที่ศึกษา — ทุกการวิเคราะห์ใช้ไทยเป็น subject" style="border-left:2px solid #ff444420"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">THA</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Thailand</span><span class="cg-why">ประเทศที่ศึกษา — ทุกการวิเคราะห์ใช้ไทยเป็น subject</span></div></div></div><div class="cg-section"><div class="cg-header" style="border-left:3px solid #f4845f"><span class="cg-swatch" style="background:#f4845f"></span><strong style="color:#e6edf3">Energy Peer</strong> <span style="color:#8b949e;font-size:11px">(16 countries)</span></div><div class="cg-list"><div class="cg-item" title="fossil_share_elec 96%, gas-heavy, GDP peer region" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">ISR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Israel</span><span class="cg-why">fossil_share_elec 96%, gas-heavy, GDP peer region</span></div><div class="cg-item" title="gas-dominated grid, high fossil dependency" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">SAU</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Saudi Arabia</span><span class="cg-why">gas-dominated grid, high fossil dependency</span></div><div class="cg-item" title="fossil 85%+, LNG-dependent, post-Fukushima gas surge" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">JPN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Japan</span><span class="cg-why">fossil 85%+, LNG-dependent, post-Fukushima gas surge</span></div><div class="cg-item" title="fossil+gas share close to Thailand 2022 baseline" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">GBR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">United Kingdom</span><span class="cg-why">fossil+gas share close to Thailand 2022 baseline</span></div><div class="cg-item" title="fossil profile similar pre-transition, gas-dependent" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">ESP</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Spain</span><span class="cg-why">fossil profile similar pre-transition, gas-dependent</span></div><div class="cg-item" title="similar gas/fossil baseline before rapid solar buildout" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">PRT</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Portugal</span><span class="cg-why">similar gas/fossil baseline before rapid solar buildout</span></div><div class="cg-item" title="gas 40%+ electricity, fossil-heavy profile" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">ITA</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Italy</span><span class="cg-why">gas 40%+ electricity, fossil-heavy profile</span></div><div class="cg-item" title="coal/gas dominant, fossil share >80%" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">POL</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Poland</span><span class="cg-why">coal/gas dominant, fossil share >80%</span></div><div class="cg-item" title="gas+coal dominant, similar fossil structure" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">CZE</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Czech Republic</span><span class="cg-why">gas+coal dominant, similar fossil structure</span></div><div class="cg-item" title="domestic gas production declining, import dependency rising" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">ROU</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Romania</span><span class="cg-why">domestic gas production declining, import dependency rising</span></div><div class="cg-item" title="fossil+gas heavy, SEE energy structure" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">BGR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Bulgaria</span><span class="cg-why">fossil+gas heavy, SEE energy structure</span></div><div class="cg-item" title="gas pipeline dependent, fossil heavy — passes Triple Illusion" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">HUN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Hungary</span><span class="cg-why">gas pipeline dependent, fossil heavy — passes Triple Illusion</span></div><div class="cg-item" title="gas+nuclear mix, gas SS near zero — passes Triple Illusion" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">SVK</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Slovakia</span><span class="cg-why">gas+nuclear mix, gas SS near zero — passes Triple Illusion</span></div><div class="cg-item" title="oil-import heavy, gas rising — passes Triple Illusion" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">GRC</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Greece</span><span class="cg-why">oil-import heavy, gas rising — passes Triple Illusion</span></div><div class="cg-item" title="coal+gas, fossil profile similar to Thailand in structure" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">SRB</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Serbia</span><span class="cg-why">coal+gas, fossil profile similar to Thailand in structure</span></div><div class="cg-item" title="gas-dependent, Balkans energy structure" style="border-left:2px solid #f4845f20"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">HRV</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Croatia</span><span class="cg-why">gas-dependent, Balkans energy structure</span></div></div></div><div class="cg-section"><div class="cg-header" style="border-left:3px solid #00c9a7"><span class="cg-swatch" style="background:#00c9a7"></span><strong style="color:#e6edf3">Energy Peer & SEA Context</strong> <span style="color:#8b949e;font-size:11px">(1 countries)</span></div><div class="cg-list"><div class="cg-item" title="gas-heavy grid (SEA neighbor); energy structure closest to Thailand" style="border-left:2px solid #00c9a720"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">MYS</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Malaysia</span><span class="cg-why">gas-heavy grid (SEA neighbor); energy structure closest to Thailand</span></div></div></div><div class="cg-section"><div class="cg-header" style="border-left:3px solid #3fb950"><span class="cg-swatch" style="background:#3fb950"></span><strong style="color:#e6edf3">Energy Peer & Transition Success</strong> <span style="color:#8b949e;font-size:11px">(3 countries)</span></div><div class="cg-list"><div class="cg-item" title="gas historically dominant; also reduced fossil ≥10pp" style="border-left:2px solid #3fb95020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">NLD</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Netherlands</span><span class="cg-why">gas historically dominant; also reduced fossil ≥10pp</span></div><div class="cg-item" title="LNG-heavy grid; also shows fossil share decline" style="border-left:2px solid #3fb95020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">KOR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">South Korea</span><span class="cg-why">LNG-heavy grid; also shows fossil share decline</span></div><div class="cg-item" title="coal/gas dominant; also fossil share fell ≥10pp" style="border-left:2px solid #3fb95020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">IND</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">India</span><span class="cg-why">coal/gas dominant; also fossil share fell ≥10pp</span></div></div></div><div class="cg-section"><div class="cg-header" style="border-left:3px solid #7b92c9"><span class="cg-swatch" style="background:#7b92c9"></span><strong style="color:#e6edf3">GDP Peer</strong> <span style="color:#8b949e;font-size:11px">(20 countries)</span></div><div class="cg-list"><div class="cg-item" title="GDP/cap ±40% Thailand (~$15,671 PPP) — Western Hemisphere split" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">MEX</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Mexico</span><span class="cg-why">GDP/cap ±40% Thailand (~$15,671 PPP) — Western Hemisphere split</span></div><div class="cg-item" title="GDP/cap ±40%, large economy, Latin America" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">BRA</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Brazil</span><span class="cg-why">GDP/cap ±40%, large economy, Latin America</span></div><div class="cg-item" title="GDP/cap ±40%, Latin America" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">COL</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Colombia</span><span class="cg-why">GDP/cap ±40%, Latin America</span></div><div class="cg-item" title="GDP/cap ±40%, Central America" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">CRI</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Costa Rica</span><span class="cg-why">GDP/cap ±40%, Central America</span></div><div class="cg-item" title="GDP/cap ±40%, Caribbean" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">DOM</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Dominican Republic</span><span class="cg-why">GDP/cap ±40%, Caribbean</span></div><div class="cg-item" title="GDP/cap ±40%, Andean" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">ECU</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Ecuador</span><span class="cg-why">GDP/cap ±40%, Andean</span></div><div class="cg-item" title="GDP/cap ±40%, Central America" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">GTM</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Guatemala</span><span class="cg-why">GDP/cap ±40%, Central America</span></div><div class="cg-item" title="GDP/cap ±40%, Central America" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">HND</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Honduras</span><span class="cg-why">GDP/cap ±40%, Central America</span></div><div class="cg-item" title="GDP/cap ±40%, Andean" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">PER</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Peru</span><span class="cg-why">GDP/cap ±40%, Andean</span></div><div class="cg-item" title="GDP/cap ±40%, Eastern Europe/Caucasus" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">ARM</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Armenia</span><span class="cg-why">GDP/cap ±40%, Eastern Europe/Caucasus</span></div><div class="cg-item" title="GDP/cap ±40%, Middle East" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">IRN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Iran</span><span class="cg-why">GDP/cap ±40%, Middle East</span></div><div class="cg-item" title="GDP/cap ±40%, Middle East" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">IRQ</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Iraq</span><span class="cg-why">GDP/cap ±40%, Middle East</span></div><div class="cg-item" title="GDP/cap ±40%, Middle East" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">JOR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Jordan</span><span class="cg-why">GDP/cap ±40%, Middle East</span></div><div class="cg-item" title="GDP/cap ±40%, Central Asia" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">KAZ</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Kazakhstan</span><span class="cg-why">GDP/cap ±40%, Central Asia</span></div><div class="cg-item" title="GDP/cap ±40%, North Africa" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">LBY</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Libya</span><span class="cg-why">GDP/cap ±40%, North Africa</span></div><div class="cg-item" title="GDP/cap ±40%, East Asia" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">MNG</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Mongolia</span><span class="cg-why">GDP/cap ±40%, East Asia</span></div><div class="cg-item" title="GDP/cap ±40%, North Africa" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">TUN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Tunisia</span><span class="cg-why">GDP/cap ±40%, North Africa</span></div><div class="cg-item" title="GDP/cap ±40%, Eastern Europe" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">UKR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Ukraine</span><span class="cg-why">GDP/cap ±40%, Eastern Europe</span></div><div class="cg-item" title="GDP/cap ±40%, North Africa" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">DZA</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Algeria</span><span class="cg-why">GDP/cap ±40%, North Africa</span></div><div class="cg-item" title="GDP/cap ±40%, Eastern Europe" style="border-left:2px solid #7b92c920"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">BLR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Belarus</span><span class="cg-why">GDP/cap ±40%, Eastern Europe</span></div></div></div><div class="cg-section"><div class="cg-header" style="border-left:3px solid #e879a0"><span class="cg-swatch" style="background:#e879a0"></span><strong style="color:#e6edf3">Transition Success</strong> <span style="color:#8b949e;font-size:11px">(15 countries)</span></div><div class="cg-list"><div class="cg-item" title="fossil_share_energy fell −31.9pp 2003–2023 — wind pioneer" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">DNK</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Denmark</span><span class="cg-why">fossil_share_energy fell −31.9pp 2003–2023 — wind pioneer</span></div><div class="cg-item" title="fossil fell −31.4pp, nuclear+hydro expansion" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">FIN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Finland</span><span class="cg-why">fossil fell −31.4pp, nuclear+hydro expansion</span></div><div class="cg-item" title="fossil fell −20pp, rapid wind buildout" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">IRL</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Ireland</span><span class="cg-why">fossil fell −20pp, rapid wind buildout</span></div><div class="cg-item" title="Energiewende — fossil fell ≥10pp with solar+wind" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">DEU</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Germany</span><span class="cg-why">Energiewende — fossil fell ≥10pp with solar+wind</span></div><div class="cg-item" title="fossil fell ≥10pp, nuclear+offshore wind" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">BEL</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Belgium</span><span class="cg-why">fossil fell ≥10pp, nuclear+offshore wind</span></div><div class="cg-item" title="fossil fell ≥10pp, hydro+wind expansion" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">AUT</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Austria</span><span class="cg-why">fossil fell ≥10pp, hydro+wind expansion</span></div><div class="cg-item" title="fossil fell ≥10pp, hydro dominant" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">CHE</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Switzerland</span><span class="cg-why">fossil fell ≥10pp, hydro dominant</span></div><div class="cg-item" title="fossil fell ≥10pp, nuclear baseload dominant" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">FRA</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">France</span><span class="cg-why">fossil fell ≥10pp, nuclear baseload dominant</span></div><div class="cg-item" title="fossil share already low but further declined" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">NOR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Norway</span><span class="cg-why">fossil share already low but further declined</span></div><div class="cg-item" title="fossil fell ≥10pp, nuclear+hydro" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">SWE</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Sweden</span><span class="cg-why">fossil fell ≥10pp, nuclear+hydro</span></div><div class="cg-item" title="fossil fell ≥10pp recent years despite coal base" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">AUS</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Australia</span><span class="cg-why">fossil fell ≥10pp recent years despite coal base</span></div><div class="cg-item" title="fossil fell ≥10pp, geothermal+hydro" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">NZL</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">New Zealand</span><span class="cg-why">fossil fell ≥10pp, geothermal+hydro</span></div><div class="cg-item" title="fossil fell ≥10pp, hydro+nuclear provinces" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">CAN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Canada</span><span class="cg-why">fossil fell ≥10pp, hydro+nuclear provinces</span></div><div class="cg-item" title="fossil fell ≥10pp, gas replacing coal + solar/wind boom" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">USA</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">United States</span><span class="cg-why">fossil fell ≥10pp, gas replacing coal + solar/wind boom</span></div><div class="cg-item" title="fossil share fell ≥10pp despite absolute volume rising" style="border-left:2px solid #e879a020"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">CHN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">China</span><span class="cg-why">fossil share fell ≥10pp despite absolute volume rising</span></div></div></div><div class="cg-section"><div class="cg-header" style="border-left:3px solid #f4bc72"><span class="cg-swatch" style="background:#f4bc72"></span><strong style="color:#e6edf3">SEA Context</strong> <span style="color:#8b949e;font-size:11px">(7 countries)</span></div><div class="cg-list"><div class="cg-item" title="SEA neighbor, rapid coal+RE expansion, comparable grid" style="border-left:2px solid #f4bc7220"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">VNM</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Vietnam</span><span class="cg-why">SEA neighbor, rapid coal+RE expansion, comparable grid</span></div><div class="cg-item" title="SEA neighbor — passes Triple Illusion, structurally similar" style="border-left:2px solid #f4bc7220"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">IDN</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Indonesia</span><span class="cg-why">SEA neighbor — passes Triple Illusion, structurally similar</span></div><div class="cg-item" title="SEA island nation, coal-heavy, energy transition pressure" style="border-left:2px solid #f4bc7220"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">PHL</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Philippines</span><span class="cg-why">SEA island nation, coal-heavy, energy transition pressure</span></div><div class="cg-item" title="SEA hub, gas-dependent, electricity interconnection" style="border-left:2px solid #f4bc7220"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">SGP</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Singapore</span><span class="cg-why">SEA hub, gas-dependent, electricity interconnection</span></div><div class="cg-item" title="SEA neighbor, Laos hydro corridor context" style="border-left:2px solid #f4bc7220"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">MMR</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Myanmar</span><span class="cg-why">SEA neighbor, Laos hydro corridor context</span></div><div class="cg-item" title="SEA neighbor, import-dependent, Mekong hydro" style="border-left:2px solid #f4bc7220"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">KHM</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Cambodia</span><span class="cg-why">SEA neighbor, import-dependent, Mekong hydro</span></div><div class="cg-item" title="Thailand's primary electricity supplier (hydro) — 63% of EI" style="border-left:2px solid #f4bc7220"><span style="color:#c9d1d9;font-family:IBM Plex Mono;font-size:10px">LAO</span><span style="color:#c9d1d9;margin-left:8px;font-size:12px">Laos</span><span class="cg-why">Thailand's primary electricity supplier (hydro) — 63% of EI</span></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INNOVATION DETAIL ═══════════════════════════════════════ -->
+<section id="innovation" style="background:var(--s1)">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-purple">Innovation Pathways · เทคโนโลยีที่เปลี่ยนเกม</div>
+      <h2 class="sec-title">4 Innovation ที่ทำให้<br>Scenario 4 เป็นไปได้</h2>
+      <div class="insight insight-blue">
+        <div class="insight-label">Plain English</div>
+        <p>Innovation แต่ละชิ้นไม่ได้แก้ปัญหาเดียวกัน แต่แก้คนละ constraint ใน system ของไทย Perovskite แก้ cost ของ solar · Iron-Air แก้ grid ceiling · Green H₂ แก้ industrial gas lock-in · SMR แก้ baseload dependency รวมกันทำให้ absorption ratio ต่ำกว่า 1.0 ได้ในปี 2035</p>
+      </div>
+      <div class="insight insight-amber">
+        <div class="insight-label">5.10× vs 3.51× — ทำไม BAU ใน Scenario 4 ถึงแสดง 5.10 ไม่ใช่ 3.51</div>
+        <p><strong>3.51×</strong> = Historical period average: ΔDemand ÷ ΔRE ของช่วง 2010–2024 ทั้งหมด (73.1 ÷ 20.8) เป็นค่าเฉลี่ยย้อนหลัง 14 ปี รวมช่วงต้นที่ demand growth ยังช้า<br>
+        <strong style="color:var(--amber)">5.10×</strong> = Current marginal rate: OLS slope ของ demand (+5.370 TWh/yr) ÷ OLS slope ของ RE (+1.053 TWh/yr) เป็นอัตราปัจจุบัน ณ 2024 ที่ reflect acceleration ใน recent years<br>
+        ทั้งสองถูกต้อง แต่ 5.10× คือ <strong>current trajectory rate</strong> ที่ใช้ใน simulation เพราะ reflect momentum จริงที่กำลังเกิดขึ้น ไม่ใช่ค่าเฉลี่ยของอดีต</p>
+      </div>
+    </div>
+
+    <!-- Innovation 1 -->
+    <div class="panel reveal" style="margin-bottom:14px;border-left:3px solid var(--amber)">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:22px;color:var(--amber);font-weight:600">01</div>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:var(--tx)">Perovskite Tandem Solar</div>
+              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2027–2030 · Absorption impact: 5.10× → 3.09×</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#c9d1d9;line-height:1.8;margin-bottom:12px">
+            <strong style="color:var(--tx)">คืออะไร:</strong> Solar cell รุ่นถัดไปที่วาง perovskite layer ไว้บน silicon ชั้น perovskite รับแสง UV/visible ที่ silicon พลาด ชั้น silicon รับแสง near-infrared ทำให้รวมกันได้ efficiency สูงกว่า silicon เดี่ยว theoretical limit = 43% vs silicon 29%<br><br>
+            <strong style="color:var(--tx)">ใครผลิต:</strong> LONGi (จีน, world record 34.6%), Oxford PV (UK, commercial modules 24.5%), Qcells (เกาหลี, 28.6% large-scale record Dec 2024), EneCoat Technologies (ญี่ปุ่น, Toyota partnership)<br><br>
+            <strong style="color:var(--tx)">ทำไมถึงเป็น 2027:</strong> Oxford PV เริ่ม ship utility-scale modules ไปสหรัฐฯ แล้วใน Sep 2024 แต่ outdoor durability ใน tropical climate (humidity, UV, heat cycling) ยังมี performance loss 7–8%/month ในสภาพ unencapsulated งานวิจัยด้าน encapsulation engineering และ interface passivation ปี 2024–2025 แสดง progress ชัดเจน ทำให้ 2027 คือ window ที่ bankable 25-year warranty เป็นไปได้<br><br>
+            <strong style="color:var(--tx)">ทำไม absorption ratio ลดจาก 5.10 → 3.09:</strong> Module efficiency 22%→28% = capital เดิมได้ capacity มากขึ้น 27% ต้นทุน/kWh ลดทำให้ project pipeline เพิ่ม ~15% รวมกันทำให้ dRE เพิ่มเป็น ×1.45 ขณะที่ demand management policy ลด dD เป็น ×0.88 ผลคือ ratio = (5.370×0.88)/(1.053×1.45) = 4.726/1.527 = 3.09
+          </div>
+        </div>
+        <div style="width:220px;flex-shrink:0">
+          <div style="background:var(--s3);border-radius:8px;padding:14px;border:1px solid var(--b2)">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">References</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.8">
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--amber)">Nano-Micro Letters (2025)</div>
+                Key Advancements and Emerging Trends of Perovskite Solar Cells in 2024–2025<br>
+                <span style="color:var(--tx3)">PCE records 27%+ single, 34%+ tandem</span>
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--amber)">American Ceramic Society (2025)</div>
+                LONGi 34.6% world record announcement, SNEC Expo Shanghai 2024
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--amber)">Oxford PV (Sep 2024)</div>
+                First commercial perovskite-silicon tandem utility-scale shipment to US
+              </div>
+              <div>
+                <div style="color:var(--amber)">IDTechEx (2025)</div>
+                Perovskite Photovoltaic Market 2025–2035
+              </div>
+            </div>
+          </div>
+          <div style="background:#f8514910;border:1px solid #f8514930;border-radius:6px;padding:10px;margin-top:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--red);margin-bottom:4px">Cons & Secondary Transitions</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.6">Lead content → recycling infrastructure needed · Critical mineral supply chain · Grid ceiling ยังจำกัดถ้าไม่มี storage</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Innovation 2 -->
+    <div class="panel reveal" style="margin-bottom:14px;border-left:3px solid var(--blue)">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:22px;color:var(--blue);font-weight:600">02</div>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:var(--tx)">Long-Duration Energy Storage (Iron-Air)</div>
+              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2030–2035 · Absorption impact: 3.09× → 1.35× · Grid ceiling: 40%→70%+</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#c9d1d9;line-height:1.8;margin-bottom:12px">
+            <strong style="color:var(--tx)">คืออะไร:</strong> Battery ที่ใช้กระบวนการ "สนิมกลับทิศ" ขณะ discharge เหล็กทำปฏิกิริยากับออกซิเจนจากอากาศเกิดสนิมและปล่อยพลังงาน ขณะ charge ไฟฟ้าย้อนปฏิกิริยากลับ ใช้เหล็กและอากาศ — วัสดุที่ราคาถูกและมีอยู่ทุกที่ ทำให้ต้นทุนต่อ kWh ของ energy ที่ STORE ต่ำมากเมื่อต้องการ duration ยาว (สร้างพลังงานไม่แพงแต่เก็บพลังงานได้นาน 100 ชั่วโมง)<br><br>
+            <strong style="color:var(--tx)">ใครผลิต:</strong> Form Energy (สหรัฐฯ, สัญญากับ Georgia Power และ Xcel Energy), Ore Energy (เนเธอร์แลนด์, Delft University grid connection สิงหาคม 2025 — ครั้งแรกในโลก)<br><br>
+            <strong style="color:var(--tx)">ทำไม LDES สำคัญสำหรับไทยกว่า innovation อื่น:</strong> Root cause ที่แท้จริงที่ EGAT ไม่สามารถ retire gas plant ได้คือ grid stability — solar ผลิตได้แค่กลางวัน wind ไม่สม่ำเสมอ gas จึงต้องอยู่เป็น backup ตลอด ถ้า backup ต้องอยู่ก็มี fixed cost ที่ต้อง recover ซึ่งหมายความว่า gas ไม่มีวัน retire ด้วย 100-hour storage ที่ bridge ได้แม้ 4 วันฝนตกหรืออากาศครึ้ม RE penetration ceiling ขยับจาก 40% เป็น 70%+<br><br>
+            <strong style="color:var(--tx)">ทำไมถึงเป็น 2030–2035:</strong> Form Energy Georgia Power deployment ปี 2026–2027 จะให้ field performance data ที่ utilities ใน SEA ต้องการสำหรับ bankable financing ช่วง 2028–2030 คือ validation window จาก 2030 LDES scale ใน SEA ตาม typical 2–3 ปี after Western deployment
+          </div>
+        </div>
+        <div style="width:220px;flex-shrink:0">
+          <div style="background:var(--s3);border-radius:8px;padding:14px;border:1px solid var(--b2)">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">References</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.8">
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--blue)">Ore Energy / Delft (Aug 2025)</div>
+                World's first grid-connected iron-air battery, Delft University grid
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--blue)">Form Energy (2025)</div>
+                Georgia Power multi-unit contract · Xcel Energy 1 GWh deployment
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--blue)">PatSnap / Utility Dive (2026)</div>
+                LDES Technology Landscape 2026: Iron-Air, Vanadium Flow, CAES
+              </div>
+              <div>
+                <div style="color:var(--blue)">WoodMac LDES (2025)</div>
+                Long-duration storage deployments rose 49% in 2025
+              </div>
+            </div>
+          </div>
+          <div style="background:#f8514910;border:1px solid #f8514930;border-radius:6px;padding:10px;margin-top:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--red);margin-bottom:4px">Cons</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.6">Round-trip efficiency 50–60% (vs li-ion 90%+) · $20/kWh คือ projection ไม่ใช่ validated cost · Electricity market reform จำเป็น</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Innovation 3 -->
+    <div class="panel reveal" style="margin-bottom:14px;border-left:3px solid var(--green)">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:22px;color:var(--green);font-weight:600">03</div>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:var(--tx)">Green Hydrogen</div>
+              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2030–2037 · แก้ industrial gas lock-in · ไม่ใช่ electricity storage</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#c9d1d9;line-height:1.8;margin-bottom:12px">
+            <strong style="color:var(--tx)">คืออะไร:</strong> Hydrogen ที่ผลิตจาก electrolysis โดยใช้ renewable electricity ไม่ใช่แหล่งพลังงาน แต่เป็น energy carrier / storage medium round-trip efficiency เพียง 25–40% ดังนั้นไม่แข่งกับ battery สำหรับ daily cycling แต่แข่งกับ LNG สำหรับ industrial heat สูง และ seasonal storage<br><br>
+            <strong style="color:var(--tx)">ใครพัฒนา:</strong> FuelCell Energy + Malaysia Marine (SOEC, 2025), Chinese electrolyzer manufacturers (ราคาถูกกว่า Western 30–40%), IRENA, IEA — ผลักดัน policy framework ระดับโลก<br><br>
+            <strong style="color:var(--tx)">ทำไมถึงเป็น 2030–2035:</strong> ราคา green hydrogen ปัจจุบัน $3–6/kg vs fossil hydrogen $0.5–2/kg ส่วนต่างนี้ต้องการ solar electricity &lt;$0.02/kWh + electrolyzer scale-up IRENA 2025 projection: cost parity กับ LNG ในภูมิภาคที่มี solar irradiance ดี (ไทย = 5+ kWh/m²/day) จะเกิดใน 2030–2035<br><br>
+            <strong style="color:var(--tx)">ทำไมสำคัญสำหรับ gas dependency โดยเฉพาะ:</strong> Gas ของไทยถูกใช้สองส่วน ส่วน 68% สำหรับผลิตไฟฟ้า (solar+storage แก้ได้) ส่วน industrial heat temperature สูง เช่น petrochemical, cement ที่ electrify โดยตรงยาก green hydrogen แก้ส่วนที่สองซึ่งเป็น structural gas lock-in ที่แท้จริง
+          </div>
+        </div>
+        <div style="width:220px;flex-shrink:0">
+          <div style="background:var(--s3);border-radius:8px;padding:14px;border:1px solid var(--b2)">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">References</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.8">
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--green)">IEA Global Hydrogen Review (2025)</div>
+                Chapter 7: Southeast Asia in focus — gas import trajectory
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--green)">IRENA (2025)</div>
+                Analysis of potential for green hydrogen and related commodities trade
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--green)">Energy & Fuels / ACS (2024)</div>
+                Progressive and Disruptive Innovation-Driven Cost Reductions of Green Hydrogen
+              </div>
+              <div>
+                <div style="color:var(--green)">Hydrogen News Asia (Mar 2025)</div>
+                FuelCell Energy + Malaysia Marine SOEC deal
+              </div>
+            </div>
+          </div>
+          <div style="background:#f8514910;border:1px solid #f8514930;border-radius:6px;padding:10px;margin-top:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--red);margin-bottom:4px">Cons</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.6">Round-trip 25–40% · Pipeline ไม่รองรับ H₂ → ต้อง retrofit · ต้องการ industrial demand policy สร้าง market ก่อน</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Innovation 4 -->
+    <div class="panel reveal" style="margin-bottom:0;border-left:3px solid var(--purple)">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:22px;color:var(--purple);font-weight:600">04</div>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:var(--tx)">Small Modular Reactor (SMR)</div>
+              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2035–2037 construction · 2037 online · GS stabilises for first time</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#c9d1d9;line-height:1.8;margin-bottom:12px">
+            <strong style="color:var(--tx)">คืออะไร:</strong> SMR ไม่ใช่ physics ใหม่ แต่เปลี่ยน deployment model จาก mega-project (10–15B USD, 15–30 ปี) เป็น modular units 50–300 MW ที่ผลิตในโรงงาน ship ไป install ได้ใน 2–3 ปี ให้ dispatchable carbon-free baseload ตลอด 24 ชั่วโมงโดยไม่ต้องการ fuel import จากตะวันออกกลาง (uranium มาจาก Canada, Australia, Kazakhstan)<br><br>
+            <strong style="color:var(--tx)">ใครพัฒนา:</strong> KHNP (เกาหลีใต้, Thailand MoU), NuScale (สหรัฐฯ, NRC certified), Rolls-Royce (UK, ONR approved), Kairos Power (สหรัฐฯ, Google contract 500MW by 2030)<br><br>
+            <strong style="color:var(--tx)">ทำไมถึงเป็น 2037 สำหรับไทย:</strong> Thailand signed MoU กับ Korea on SMR technology transfer และ 123 Agreement กับ US แล้ว Draft national plan ระบุ 600 MW by 2037 IAEA milestone framework สำหรับ newcomer country ต้องการ 7–10 ปี ถ้าเริ่มตอนนี้จริงๆ 2035 groundbreaking → 2037 online คือ aggressive แต่ possible Wood Mackenzie SEA Nuclear 2025: $208B investment, 25 GW by 2050<br><br>
+            <strong style="color:var(--tx)">ทำไม SMR เปลี่ยน GS trajectory:</strong> 600 MW SMR แทนที่ gas-fired baseload ได้ 8–12 TWh/yr เมื่อ gas consumption ลดลง gas SS (production/consumption × 100) เพิ่มขึ้นครั้งแรกนับจากปี 2000 Model ให้ dGS = +0.30 pp/yr แทนที่จะเป็น −1.01 pp/yr แบบ BAU
+          </div>
+        </div>
+        <div style="width:220px;flex-shrink:0">
+          <div style="background:var(--s3);border-radius:8px;padding:14px;border:1px solid var(--b2)">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">References</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.8">
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--purple)">Wood Mackenzie (Sep 2025)</div>
+                What if Southeast Asia goes nuclear? $208B, 25 GW by 2050
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--purple)">Energy for Growth Hub (2025)</div>
+                2025 Update: Who in ASEAN is ready for nuclear? Thailand MoU Korea
+              </div>
+              <div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--b1)">
+                <div style="color:var(--purple)">Business Weekly (Mar 2026)</div>
+                Nuclear power back on SEA's agenda — SMR opportunity
+              </div>
+              <div>
+                <div style="color:var(--purple)">ScienceDirect (2025)</div>
+                Deploying SMRs in newcomer countries: IAEA milestones 7–10 yr
+              </div>
+            </div>
+          </div>
+          <div style="background:#f8514910;border:1px solid #f8514930;border-radius:6px;padding:10px;margin-top:8px">
+            <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--red);margin-bottom:4px">Cons — Honest Assessment</div>
+            <div style="font-size:11px;color:#c9d1d9;line-height:1.6">Nuclear waste: ยังไม่มี long-term storage plan · Cost overrun risk สูงสำหรับ newcomer · Public acceptance · Uranium supply dependency ใหม่ (แต่ diversified กว่า LNG)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ METHODS DETAIL ═══════════════════════════════════════════ -->
+<section id="methods-detail" style="background:var(--bg)">
+  <div class="container">
+    <div class="reveal">
+      <div class="chip chip-purple">Statistical Methods · หลักการทางคณิตศาสตร์</div>
+      <h2 class="sec-title">6 วิธีทางสถิติ<br>ที่พิสูจน์ข้อค้นพบนี้</h2>
+      <p class="sec-sub" style="color:#c9d1d9">แต่ละ method ตอบคำถามคนละมิติ ไม่ overlap กัน รวมกันสร้างหลักฐานที่ครอบคลุมทุกมุมของ New Assumption</p>
+    </div>
+
+    <!-- Method 1 -->
+    <div class="panel reveal" style="margin-bottom:12px">
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+        <div style="font-family:'IBM Plex Mono';font-size:32px;color:var(--amber);font-weight:600;opacity:.5;flex-shrink:0">01</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px">OLS Regression + Newey-West HAC Standard Errors</div>
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);margin-bottom:10px">y_t = α + β·t + ε_t · cov_type='HAC' · maxlags=3 · Bartlett kernel</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px">
+            <div>
+              <div style="color:var(--amber);margin-bottom:4px;font-weight:500">คืออะไร?</div>
+              <div style="color:#c9d1d9;line-height:1.7">หาเส้นตรงที่ "พอดีที่สุด" กับข้อมูล time series แล้วทดสอบว่า slope นั้นมีนัยสำคัญจริงหรือเป็นแค่ noise ปกติ Newey-West แก้ปัญหา autocorrelation ที่ทำให้ p-value ปกติผิดพลาด</div>
+            </div>
+            <div>
+              <div style="color:var(--amber);margin-bottom:4px;font-weight:500">Use Case จริง</div>
+              <div style="color:#c9d1d9;line-height:1.7">นักเศรษฐศาสตร์ใช้ OLS+HAC วัด trend ของ GDP, inflation, employment rate ตลอด 30–40 ปี เพื่อแยกว่าเป็น trend จริงหรือ cyclical movement</div>
+            </div>
+            <div>
+              <div style="color:var(--amber);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
+              <div style="color:#c9d1d9;line-height:1.7">พิสูจน์ว่า trend ของทั้ง 3 dependency channels (EI, GS, Oil) มีนัยสำคัญจริง p&lt;0.001 ทุกตัว — ไม่ใช่ statistical noise</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3);background:var(--s3);padding:8px 12px;border-radius:4px">
+            สูตร: L(a,b) = slope / SE_HAC · p-value = 2×(1−CDF_t(|t|)) · lag m = floor(4×(N/100)^(2/9)) = 3 สำหรับ N=25
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Method 2 -->
+    <div class="panel reveal" style="margin-bottom:12px">
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+        <div style="font-family:'IBM Plex Mono';font-size:32px;color:var(--blue);font-weight:600;opacity:.5;flex-shrink:0">02</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px">LMDI-I Additive Decomposition</div>
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);margin-bottom:10px">ΔC = ΔC_activity + ΔC_intensity · L(a,b) = (a−b)/ln(a/b) · zero residual by construction</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px">
+            <div>
+              <div style="color:var(--blue);margin-bottom:4px;font-weight:500">คืออะไร?</div>
+              <div style="color:#c9d1d9;line-height:1.7">"แยก" ว่าการเปลี่ยนแปลงของ CO₂ รวมมาจากอะไรบ้าง ระหว่าง "ใช้พลังงานมากขึ้น" (activity) กับ "พลังงานสะอาดขึ้น" (intensity) โดยที่ผลรวมสองส่วนเท่ากับ total change พอดีไม่มี error</div>
+            </div>
+            <div>
+              <div style="color:var(--blue);margin-bottom:4px;font-weight:500">Use Case จริง</div>
+              <div style="color:#c9d1d9;line-height:1.7">IEA ใช้ LMDI แยกว่า CO₂ ของ EU ที่ลดลงมาจาก "เศรษฐกิจชะลอ" หรือ "พลังงานสะอาดขึ้นจริง" เพื่อไม่ให้ recession เครดิตผลของ climate policy</div>
+            </div>
+            <div>
+              <div style="color:var(--blue);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
+              <div style="color:#c9d1d9;line-height:1.7">พิสูจน์ว่า CI ที่ดูลดลงนั้นถูก overwhelm โดย demand growth: Activity +81.3 MtCO₂ vs Intensity −9.8 MtCO₂ = อัตราส่วน 8.3:1</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3);background:var(--s3);padding:8px 12px;border-radius:4px">
+            ΔC_activity = L(C₁,C₀)×ln(D₁/D₀) · ΔC_intensity = L(C₁,C₀)×ln(CI₁/CI₀) · ΔC_activity + ΔC_intensity ≡ C₁−C₀
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Method 3 -->
+    <div class="panel reveal" style="margin-bottom:12px">
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+        <div style="font-family:'IBM Plex Mono';font-size:32px;color:var(--red);font-weight:600;opacity:.5;flex-shrink:0">03</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px">PELT Structural Break Detection + Chow F-test</div>
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);margin-bottom:10px">ruptures.Pelt(model='l2') · Chow: t = Δβ/√(SE₁²+SE₂²) · p_chow &lt; 0.05 รายงาน</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px">
+            <div>
+              <div style="color:var(--red);margin-bottom:4px;font-weight:500">คืออะไร?</div>
+              <div style="color:#c9d1d9;line-height:1.7">ค้นหาปีที่ trend ของข้อมูลเปลี่ยนลักษณะอย่างมีนัยสำคัญ โดยที่เราไม่ต้องบอกล่วงหน้าว่าปีไหน PELT หา candidate จาก algorithm แล้ว Chow F-test ยืนยันว่า slope change มีนัยสำคัญจริง</div>
+            </div>
+            <div>
+              <div style="color:var(--red);margin-bottom:4px;font-weight:500">Use Case จริง</div>
+              <div style="color:#c9d1d9;line-height:1.7">Fed ใช้ structural break detection เพื่อหาว่า monetary policy เปลี่ยน regime เมื่อไหร่ ทีม COVID-19 ใช้หา "turning points" ของ infection rate โดยไม่ต้อง preset</div>
+            </div>
+            <div>
+              <div style="color:var(--red);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
+              <div style="color:#c9d1d9;line-height:1.7">พบ break ที่ EI ปี 2010 (slope ×6.7) และ 2015, Gas SS ปี 2015 (เสื่อม 3.6×) — ยืนยันว่า trend ไม่ใช่แค่เส้นตรงเดียวตลอด 24 ปี</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3);background:var(--s3);padding:8px 12px;border-radius:4px">
+            Bug #6: PELT terminal index (always = series length) ต้อง filter b &lt; len(y) ออกก่อนรายงาน
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Method 4 -->
+    <div class="panel reveal" style="margin-bottom:12px">
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+        <div style="font-family:'IBM Plex Mono';font-size:32px;color:var(--amber);font-weight:600;opacity:.5;flex-shrink:0">04</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px">Tapio Decoupling Index</div>
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);margin-bottom:10px">δ = %ΔGHG / %ΔGDP · guard: |%ΔGDP| &lt; 0.1% excluded · per Tapio (2005)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px">
+            <div>
+              <div style="color:var(--amber);margin-bottom:4px;font-weight:500">คืออะไร?</div>
+              <div style="color:#c9d1d9;line-height:1.7">วัดว่า GDP โตแล้ว CO₂ ตามไปด้วยหรือเปล่า δ &lt;0 = decoupled (ดีที่สุด), δ &gt;1.2 = negative decoupling (CO₂ โตเร็วกว่า GDP, แย่ที่สุด) guard ป้องกัน division by near-zero</div>
+            </div>
+            <div>
+              <div style="color:var(--amber);margin-bottom:4px;font-weight:500">Use Case จริง</div>
+              <div style="color:#c9d1d9;line-height:1.7">IPCC และ OECD ใช้ Tapio เป็น standard metric ประเมิน green growth — ว่าประเทศที่โต GDP ได้พร้อมกับลด emissions หรือยังต้อง "ซื้อ" growth ด้วย carbon</div>
+            </div>
+            <div>
+              <div style="color:var(--amber);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
+              <div style="color:#c9d1d9;line-height:1.7">แสดงว่า 35% ของปีที่ GDP โตของไทยอยู่ใน "expansive negative decoupling" — CO₂ โตเร็วกว่า GDP ไม่มีช่วง 5 ปีใดที่ decoupling ยั่งยืน</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Method 5 -->
+    <div class="panel reveal" style="margin-bottom:12px">
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+        <div style="font-family:'IBM Plex Mono';font-size:32px;color:var(--green);font-weight:600;opacity:.5;flex-shrink:0">05</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px">Stock-Flow System Dynamics + Monte Carlo Simulation</div>
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);margin-bottom:10px">F_t = max(0, D_t − D_t×EI_t/100 − RE_t) · N=5,000 · seed=42 · Normal(μ=OLS, σ=SE)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px">
+            <div>
+              <div style="color:var(--green);margin-bottom:4px;font-weight:500">คืออะไร?</div>
+              <div style="color:#c9d1d9;line-height:1.7">โมเดล stock-flow เหมือนระบบ bathtub ที่มีทั้ง inflow และ outflow stocks คือปริมาณสะสม (demand, RE) flows คือ rates ที่เปลี่ยน Monte Carlo สุ่ม rates จาก distribution 5,000 ครั้งเพื่อหา probability ของผลลัพธ์</div>
+            </div>
+            <div>
+              <div style="color:var(--green);margin-bottom:4px;font-weight:500">Use Case จริง</div>
+              <div style="color:#c9d1d9;line-height:1.7">Fed ใช้ Monte Carlo ประเมิน systemic risk ของ bank portfolio แบบ stress test IEA ใช้ system dynamics วาง energy pathway ของ Net Zero by 2050</div>
+            </div>
+            <div>
+              <div style="color:var(--green);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
+              <div style="color:#c9d1d9;line-height:1.7">ฉาย 4 scenarios ออกไปปี 2044 พร้อม uncertainty bands ยืนยันด้วย MC ว่า P(fossil↑ under BAU) = 100% ไม่มีสักอนาคตที่ fossil ลดได้โดยไม่แทรกแซง</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3);background:var(--s3);padding:8px 12px;border-radius:4px">
+            Note: CLD คือ conceptual framework อธิบาย why — simulation ใช้ linear exogenous flow rates ไม่ใช่ nonlinear feedback model
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Method 6 -->
+    <div class="panel reveal">
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+        <div style="font-family:'IBM Plex Mono';font-size:32px;color:var(--purple);font-weight:600;opacity:.5;flex-shrink:0">06</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px">Triple Illusion Cross-Country Test</div>
+          <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3);margin-bottom:10px">4 binary conditions simultaneously · 63-country benchmark · rule-based pre-specified criteria</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px">
+            <div>
+              <div style="color:var(--purple);margin-bottom:4px;font-weight:500">คืออะไร?</div>
+              <div style="color:#c9d1d9;line-height:1.7">ทดสอบ 4 เงื่อนไขพร้อมกันในทุกประเทศ: Oil SS &lt;40%, Gas SS declining (p&lt;0.05), EI rising (p&lt;0.05), surface metric improving (p&lt;0.05) ประเทศที่ผ่านทั้ง 4 มี pattern เดียวกับไทย</div>
+            </div>
+            <div>
+              <div style="color:var(--purple);margin-bottom:4px;font-weight:500">Use Case จริง</div>
+              <div style="color:#c9d1d9;line-height:1.7">WHO ใช้ multi-condition screening คล้ายกันในการจำแนก countries by disease burden pattern เช่น triple burden (undernutrition + obesity + micronutrient deficiency) เพื่อหาประเทศที่มี structural vulnerability เฉพาะ</div>
+            </div>
+            <div>
+              <div style="color:var(--purple);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
+              <div style="color:#c9d1d9;line-height:1.7">พิสูจน์ว่า pattern ของไทยไม่ใช่ผลพลอยได้ของการเป็นประเทศกำลังพัฒนา: เพียง 6/63 ประเทศผ่าน ไม่ใช่กฎสากล</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+<script>
+// ═══ WORLD MAP ═══════════════════════════════════════════════════════
+(function(){
+  var traces = [{"type": "choropleth", "locationmode": "ISO-3", "locations": ["THA"], "z": [1], "colorscale": [[0, "#ff4444"], [1, "#ff4444"]], "showscale": false, "name": "Target", "customdata": [["Thailand", "ประเทศที่ศึกษา — ทุกการวิเคราะห์ใช้ไทยเป็น subject"]], "hovertemplate": "<b>%{customdata[0]}</b><br>Group: Target<br>%{customdata[1]}<extra></extra>", "marker": {"line": {"color": "#0d1117", "width": 0.6}}}, {"type": "choropleth", "locationmode": "ISO-3", "locations": ["ISR", "SAU", "JPN", "GBR", "ESP", "PRT", "ITA", "POL", "CZE", "ROU", "BGR", "HUN", "SVK", "GRC", "SRB", "HRV"], "z": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "colorscale": [[0, "#f4845f"], [1, "#f4845f"]], "showscale": false, "name": "Energy Peer", "customdata": [["Israel", "fossil_share_elec 96%, gas-heavy, GDP peer region"], ["Saudi Arabia", "gas-dominated grid, high fossil dependency"], ["Japan", "fossil 85%+, LNG-dependent, post-Fukushima gas surge"], ["United Kingdom", "fossil+gas share close to Thailand 2022 baseline"], ["Spain", "fossil profile similar pre-transition, gas-dependent"], ["Portugal", "similar gas/fossil baseline before rapid solar buildout"], ["Italy", "gas 40%+ electricity, fossil-heavy profile"], ["Poland", "coal/gas dominant, fossil share >80%"], ["Czech Republic", "gas+coal dominant, similar fossil structure"], ["Romania", "domestic gas production declining, import dependency rising"], ["Bulgaria", "fossil+gas heavy, SEE energy structure"], ["Hungary", "gas pipeline dependent, fossil heavy — passes Triple Illusion"], ["Slovakia", "gas+nuclear mix, gas SS near zero — passes Triple Illusion"], ["Greece", "oil-import heavy, gas rising — passes Triple Illusion"], ["Serbia", "coal+gas, fossil profile similar to Thailand in structure"], ["Croatia", "gas-dependent, Balkans energy structure"]], "hovertemplate": "<b>%{customdata[0]}</b><br>Group: Energy Peer<br>%{customdata[1]}<extra></extra>", "marker": {"line": {"color": "#0d1117", "width": 0.6}}}, {"type": "choropleth", "locationmode": "ISO-3", "locations": ["MEX", "BRA", "COL", "CRI", "DOM", "ECU", "GTM", "HND", "PER", "ARM", "IRN", "IRQ", "JOR", "KAZ", "LBY", "MNG", "TUN", "UKR", "DZA", "BLR"], "z": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "colorscale": [[0, "#7b92c9"], [1, "#7b92c9"]], "showscale": false, "name": "GDP Peer", "customdata": [["Mexico", "GDP/cap ±40% Thailand (~$15,671 PPP) — Western Hemisphere split"], ["Brazil", "GDP/cap ±40%, large economy, Latin America"], ["Colombia", "GDP/cap ±40%, Latin America"], ["Costa Rica", "GDP/cap ±40%, Central America"], ["Dominican Republic", "GDP/cap ±40%, Caribbean"], ["Ecuador", "GDP/cap ±40%, Andean"], ["Guatemala", "GDP/cap ±40%, Central America"], ["Honduras", "GDP/cap ±40%, Central America"], ["Peru", "GDP/cap ±40%, Andean"], ["Armenia", "GDP/cap ±40%, Eastern Europe/Caucasus"], ["Iran", "GDP/cap ±40%, Middle East"], ["Iraq", "GDP/cap ±40%, Middle East"], ["Jordan", "GDP/cap ±40%, Middle East"], ["Kazakhstan", "GDP/cap ±40%, Central Asia"], ["Libya", "GDP/cap ±40%, North Africa"], ["Mongolia", "GDP/cap ±40%, East Asia"], ["Tunisia", "GDP/cap ±40%, North Africa"], ["Ukraine", "GDP/cap ±40%, Eastern Europe"], ["Algeria", "GDP/cap ±40%, North Africa"], ["Belarus", "GDP/cap ±40%, Eastern Europe"]], "hovertemplate": "<b>%{customdata[0]}</b><br>Group: GDP Peer<br>%{customdata[1]}<extra></extra>", "marker": {"line": {"color": "#0d1117", "width": 0.6}}}, {"type": "choropleth", "locationmode": "ISO-3", "locations": ["DNK", "FIN", "IRL", "DEU", "BEL", "AUT", "CHE", "FRA", "NOR", "SWE", "AUS", "NZL", "CAN", "USA", "CHN"], "z": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "colorscale": [[0, "#e879a0"], [1, "#e879a0"]], "showscale": false, "name": "Transition Success", "customdata": [["Denmark", "fossil_share_energy fell −31.9pp 2003–2023 — wind pioneer"], ["Finland", "fossil fell −31.4pp, nuclear+hydro expansion"], ["Ireland", "fossil fell −20pp, rapid wind buildout"], ["Germany", "Energiewende — fossil fell ≥10pp with solar+wind"], ["Belgium", "fossil fell ≥10pp, nuclear+offshore wind"], ["Austria", "fossil fell ≥10pp, hydro+wind expansion"], ["Switzerland", "fossil fell ≥10pp, hydro dominant"], ["France", "fossil fell ≥10pp, nuclear baseload dominant"], ["Norway", "fossil share already low but further declined"], ["Sweden", "fossil fell ≥10pp, nuclear+hydro"], ["Australia", "fossil fell ≥10pp recent years despite coal base"], ["New Zealand", "fossil fell ≥10pp, geothermal+hydro"], ["Canada", "fossil fell ≥10pp, hydro+nuclear provinces"], ["United States", "fossil fell ≥10pp, gas replacing coal + solar/wind boom"], ["China", "fossil share fell ≥10pp despite absolute volume rising"]], "hovertemplate": "<b>%{customdata[0]}</b><br>Group: Transition Success<br>%{customdata[1]}<extra></extra>", "marker": {"line": {"color": "#0d1117", "width": 0.6}}}, {"type": "choropleth", "locationmode": "ISO-3", "locations": ["VNM", "IDN", "PHL", "SGP", "MMR", "KHM", "LAO"], "z": [1, 1, 1, 1, 1, 1, 1], "colorscale": [[0, "#f4bc72"], [1, "#f4bc72"]], "showscale": false, "name": "SEA Context", "customdata": [["Vietnam", "SEA neighbor, rapid coal+RE expansion, comparable grid"], ["Indonesia", "SEA neighbor — passes Triple Illusion, structurally similar"], ["Philippines", "SEA island nation, coal-heavy, energy transition pressure"], ["Singapore", "SEA hub, gas-dependent, electricity interconnection"], ["Myanmar", "SEA neighbor, Laos hydro corridor context"], ["Cambodia", "SEA neighbor, import-dependent, Mekong hydro"], ["Laos", "Thailand's primary electricity supplier (hydro) — 63% of EI"]], "hovertemplate": "<b>%{customdata[0]}</b><br>Group: SEA Context<br>%{customdata[1]}<extra></extra>", "marker": {"line": {"color": "#0d1117", "width": 0.6}}}, {"type": "choropleth", "locationmode": "ISO-3", "locations": ["MYS"], "z": [1], "colorscale": [[0, "#00c9a7"], [1, "#00c9a7"]], "showscale": false, "name": "Energy Peer & SEA Context", "customdata": [["Malaysia", "gas-heavy grid (SEA neighbor); energy structure closest to Thailand"]], "hovertemplate": "<b>%{customdata[0]}</b><br>Group: Energy Peer & SEA Context<br>%{customdata[1]}<extra></extra>", "marker": {"line": {"color": "#0d1117", "width": 0.6}}}, {"type": "choropleth", "locationmode": "ISO-3", "locations": ["NLD", "KOR", "IND"], "z": [1, 1, 1], "colorscale": [[0, "#3fb950"], [1, "#3fb950"]], "showscale": false, "name": "Energy Peer & Transition Success", "customdata": [["Netherlands", "gas historically dominant; also reduced fossil ≥10pp"], ["South Korea", "LNG-heavy grid; also shows fossil share decline"], ["India", "coal/gas dominant; also fossil share fell ≥10pp"]], "hovertemplate": "<b>%{customdata[0]}</b><br>Group: Energy Peer & Transition Success<br>%{customdata[1]}<extra></extra>", "marker": {"line": {"color": "#0d1117", "width": 0.6}}}];
+  var layout = {"geo": {"showframe": false, "showcoastlines": true, "coastlinecolor": "#30363d", "coastlinewidth": 0.5, "showland": true, "landcolor": "#1c2128", "showocean": true, "oceancolor": "#0d1117", "showlakes": false, "projection": {"type": "natural earth"}, "bgcolor": "#0d1117"}, "paper_bgcolor": "#0d1117", "plot_bgcolor": "#0d1117", "margin": {"l": 0, "r": 0, "t": 0, "b": 0}, "showlegend": true, "legend": {"bgcolor": "#161b22", "bordercolor": "#30363d", "borderwidth": 1, "font": {"color": "#c9d1d9", "size": 10, "family": "IBM Plex Mono"}, "x": 0.01, "y": 0.35}, "height": 400};
+  Plotly.newPlot('worldMap', traces, layout, {
+    displayModeBar: false,
+    responsive: true
+  });
+})();
+</script>
 
 <footer>
   <div style="max-width:700px;margin:0 auto">
