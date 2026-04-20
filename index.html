@@ -687,10 +687,10 @@ canvas{display:block}
     <!-- Triple Illusion + 6 Countries -->
     <div class="reveal" style="margin-top:16px">
       <div class="panel">
-        <div class="panel-title" style="margin-bottom:12px">Triple Illusion Test — 6/59 ประเทศผ่านทั้ง 4 เงื่อนไขพร้อมกัน</div>
+        <div class="panel-title" style="margin-bottom:12px">Triple Illusion Test — 6/49 ประเทศผ่านทั้ง 4 เงื่อนไขพร้อมกัน</div>
         <div style="font-size:13px;color:#c9d1d9;margin-bottom:12px;line-height:1.7">
           ทดสอบ 4 เงื่อนไขพร้อมกัน: Oil SS &lt;40% · Gas SS declining (p&lt;0.05) · EI rising (p&lt;0.05) · Surface metrics improving (p&lt;0.05)
-          &nbsp;·&nbsp; <span style="color:#e3b341;font-family:'IBM Plex Mono'">6/59 = 10%</span> ของ benchmark group ผ่านทั้งหมด
+          &nbsp;·&nbsp; <span style="color:#e3b341;font-family:'IBM Plex Mono'">6/49 = 12%</span> ของ benchmark group ผ่านทั้งหมด
         </div>
         <div class="country-grid">
           <div class="country-card">
@@ -901,7 +901,7 @@ canvas{display:block}
         <div class="honesty-item">Mahalanobis Distance ตัดออก เพราะ bug เดียวกัน ทำให้ p&gt;0.05 ทุก 5 specifications หลังแก้ bug</div>
         <div class="honesty-item">Counterfactual CI Analysis ตัดออก เพราะ Laos CI = 129 gCO₂/kWh &lt; Thailand 555 → import จาก Laos จริงๆ ช่วยให้ CI ดีขึ้น ไม่ใช่ illusion</div>
         <div class="honesty-item">Gas share electricity regression ตัดออก เพราะ slope ขัดแย้งกับ direction จริง (2024 = 68.3% &gt; 2000 = 64.0%) เนื่องจาก mid-period peak ที่ 75%</div>
-        <div class="honesty-item">Triple Illusion: 6/59 ไม่ใช่แค่ไทย — Denmark ผ่านแต่ modern RE = 69% กำลังออกจาก pattern · Hungary/Slovakia ผ่านเพราะ Russia gas cut ไม่ใช่ structural depletion</div>
+        <div class="honesty-item">Triple Illusion: 6/49 ไม่ใช่แค่ไทย — Denmark ผ่านแต่ modern RE = 69% กำลังออกจาก pattern · Hungary/Slovakia ผ่านเพราะ Russia gas cut ไม่ใช่ structural depletion</div>
       </div>
     </div>
   </div>
@@ -912,7 +912,7 @@ canvas{display:block}
 <section id="benchmark" style="background:var(--bg)">
   <div class="container">
     <div class="reveal">
-      <div class="chip chip-purple">59 Countries Benchmark · การเลือกกลุ่มตัวอย่าง</div>
+      <div class="chip chip-purple">63 Countries Benchmark · การเลือกกลุ่มตัวอย่าง</div>
       <h2 class="sec-title">ทำไมถึงเลือก<br>ประเทศเหล่านี้</h2>
       <p class="sec-sub" style="color:#c9d1d9">กลุ่มประเทศถูกกำหนดด้วย rule-based criteria <strong style="color:var(--tx)">ก่อน</strong>รัน Triple Illusion Test — ไม่ใช่หลังจากดูผล เพื่อป้องกัน p-hacking</p>
     </div>
@@ -965,7 +965,7 @@ canvas{display:block}
         </div>
       </div>
       <div style="margin-top:10px;font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3)">
-        Total unique: 1 + 16 + 1 + 3 + 20 + 15 + 7 = 63 countries (reported as ~59 ในเอกสาร เนื่องจาก data completeness threshold ที่แต่ละประเทศต้องมีข้อมูลครบ 20+ ปีสำหรับทุก condition)
+        Total unique: 1 + 16 + 1 + 3 + 20 + 15 + 7 = 63 countries (49 มีข้อมูลเพียงพอสำหรับ Triple Illusion Test · data completeness threshold: N≥8 ปีสำหรับทุก condition · 14 ประเทศที่เหลือขาดข้อมูล OWID)
       </div>
     </div>
 
@@ -1363,7 +1363,7 @@ canvas{display:block}
             </div>
             <div>
               <div style="color:var(--purple);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
-              <div style="color:#c9d1d9;line-height:1.7">พิสูจน์ว่า pattern ของไทยไม่ใช่ผลพลอยได้ของการเป็นประเทศกำลังพัฒนา: เพียง 6/63 ประเทศผ่าน ไม่ใช่กฎสากล</div>
+              <div style="color:#c9d1d9;line-height:1.7">พิสูจน์ว่า pattern ของไทยไม่ใช่ผลพลอยได้ของการเป็นประเทศกำลังพัฒนา: เพียง 6/49 ประเทศผ่าน ไม่ใช่กฎสากล</div>
             </div>
           </div>
         </div>
