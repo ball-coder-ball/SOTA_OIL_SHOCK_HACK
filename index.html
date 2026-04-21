@@ -628,7 +628,7 @@ canvas{display:block}
       <div class="absorb-verdict">
         <div class="absorb-num">3.51×</div>
         <div style="color:#c9d1d9">ทุก 1 TWh RE ที่เพิ่ม demand กลืนไป 3.51 TWh → <strong style="color:#f85149">fossil ยังต้องเพิ่มอยู่ดี</strong><br>
-        <span style="font-size:12px;color:#8b949e">17/17 transition success peers มี absorption ratio &lt; 1.0 · ไทย = 3.51× อยู่ฝั่งตรงข้ามทั้งหมด</span></div>
+        <span style="font-size:12px;color:#8b949e">14/14 transition success peers มี absorption ratio &lt; 1.0 · ไทย = 3.51× อยู่ฝั่งตรงข้ามทั้งหมด</span></div>
       </div>
     </div>
   </div>
@@ -912,7 +912,7 @@ canvas{display:block}
 <section id="benchmark" style="background:var(--bg)">
   <div class="container">
     <div class="reveal">
-      <div class="chip chip-purple">59 Countries Benchmark · การเลือกกลุ่มตัวอย่าง</div>
+      <div class="chip chip-purple">63 Countries Benchmark (57 unique · 49 tested) · การเลือกกลุ่มตัวอย่าง</div>
       <h2 class="sec-title">ทำไมถึงเลือก<br>ประเทศเหล่านี้</h2>
       <p class="sec-sub" style="color:#c9d1d9">กลุ่มประเทศถูกกำหนดด้วย rule-based criteria <strong style="color:var(--tx)">ก่อน</strong>รัน Triple Illusion Test — ไม่ใช่หลังจากดูผล เพื่อป้องกัน p-hacking</p>
     </div>
@@ -920,23 +920,33 @@ canvas{display:block}
     <!-- Why these groups -->
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px" class="reveal">
       <div class="panel" style="border-left:3px solid #7b92c9">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#7b92c9;margin-bottom:8px;letter-spacing:.08em">GDP PEERS · 20 COUNTRIES</div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#7b92c9;margin-bottom:8px;letter-spacing:.08em">GDP PEERS · 20 COUNTRIES (designed)</div>
         <div style="font-size:13px;color:#c9d1d9;line-height:1.75">GDP per capita ±40% ของไทย (~$15,671 PPP 2022) แบ่ง <strong style="color:var(--tx)">10 ประเทศ East/South/SEA</strong> และ <strong style="color:var(--tx)">10 ประเทศ Western Hemisphere/Central Asia</strong> เพื่อป้องกัน geographic bias ที่จะทำให้กลุ่มมีแต่ประเทศในภูมิภาคเดียวกัน เหตุที่เลือก 20: ให้กลุ่มใหญ่พอที่ Triple Illusion Test จะมี statistical power แต่ไม่ใหญ่เกินไปจนรวมประเทศที่ไม่เกี่ยวข้อง</div>
       </div>
       <div class="panel" style="border-left:3px solid #f4845f">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4845f;margin-bottom:8px;letter-spacing:.08em">ENERGY MIX PEERS · 20 COUNTRIES</div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4845f;margin-bottom:8px;letter-spacing:.08em">ENERGY MIX PEERS · 20 COUNTRIES (designed)</div>
         <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่มี fossil_share_electricity และ natural gas dominance ใกล้เคียงไทยปี 2022 ที่สุด เลือก 20 เพื่อ balance กับ GDP group ประเทศใน group นี้จะ challenge ว่าไทยผิดปกติจริงหรือแค่เป็นผลของโครงสร้างพลังงานที่คล้ายกัน</div>
       </div>
       <div class="panel" style="border-left:3px solid #e879a0">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#e879a0;margin-bottom:8px;letter-spacing:.08em">TRANSITION SUCCESS · 18 COUNTRIES</div>
-        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่ลด fossil_share_energy ≥10 percentage points ระหว่างปี 2003–2023 โดยเริ่มจาก &gt;40% ขนาด 18 มาจากจำนวนประเทศที่ตรงเกณฑ์จริงๆ ไม่ใช่การตั้งเป้า กลุ่มนี้สำคัญที่สุดในการ validate absorption ratio เพราะ <strong style="color:var(--tx)">17/17 มี absorption &lt;1.0</strong></div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#e879a0;margin-bottom:8px;letter-spacing:.08em">TRANSITION SUCCESS · 18 COUNTRIES (designed)</div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่ลด fossil_share_energy ≥10 percentage points ระหว่างปี 2003–2023 โดยเริ่มจาก &gt;40% ขนาด 18 มาจากจำนวนประเทศที่ตรงเกณฑ์จริงๆ ไม่ใช่การตั้งเป้า กลุ่มนี้สำคัญที่สุดในการ validate absorption ratio เพราะ <strong style="color:var(--tx)">14/14 มี absorption &lt;1.0</strong></div>
       </div>
       <div class="panel" style="border-left:3px solid #f4bc72">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4bc72;margin-bottom:8px;letter-spacing:.08em">SEA CONTEXT · 8 COUNTRIES</div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4bc72;margin-bottom:8px;letter-spacing:.08em">SEA CONTEXT · 8 COUNTRIES (designed)</div>
         <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศ ASEAN ทั้งหมด รวม Laos (แหล่ง electricity import หลักของไทย) ขนาด 8 ตรงกับจำนวน SEA member states ที่มีข้อมูลใน OWID ครบ ไม่มีการ filter เพิ่มเติม</div>
       </div>
     </div>
 
+    <div class="insight reveal" style="margin-bottom:16px;background:#161b22;border:1px solid #30363d;border-left:3px solid #e3b341;border-radius:8px;padding:14px 16px">
+      <div style="font-family:'IBM Plex Mono';font-size:10px;color:#e3b341;margin-bottom:8px;letter-spacing:.08em">ทำไมตัวเลขต่างกัน — 20+20+18+8 กับ 1+16+1+3+20+15+7</div>
+      <div style="font-size:13px;color:#c9d1d9;line-height:1.75">
+        <strong style="color:var(--tx)">20+20+18+8 = ออกแบบ</strong> — แต่ละกลุ่มมีกี่ประเทศตามเกณฑ์ &nbsp;·&nbsp;
+        <strong style="color:var(--tx)">1+16+1+3+20+15+7 = จัดกลุ่มจริง</strong> — บางประเทศอยู่ใน 2 กลุ่ม (เช่น Malaysia = Energy Peer + SEA) จึงนับครั้งเดียว &nbsp;·&nbsp;
+        <span style="color:#e3b341">57 unique</span> หลัง dedup &nbsp;·&nbsp;
+        <span style="color:#e3b341">49 ประเทศ</span> มีข้อมูล OWID ครบ &nbsp;·&nbsp;
+        <span style="color:#8b949e">8 ขาด</span>: Armenia, Cambodia, Costa Rica, Laos, Mongolia, Myanmar, Panama, Serbia
+      </div>
+    </div>
     <!-- Why NOT others -->
     <div class="insight insight-blue reveal" style="margin-bottom:20px">
       <div class="insight-label">ทำไมถึงไม่เลือกประเทศนอกกลุ่มนี้</div>
@@ -1363,7 +1373,7 @@ canvas{display:block}
             </div>
             <div>
               <div style="color:var(--purple);margin-bottom:4px;font-weight:500">เราใช้ทำอะไร</div>
-              <div style="color:#c9d1d9;line-height:1.7">พิสูจน์ว่า pattern ของไทยไม่ใช่ผลพลอยได้ของการเป็นประเทศกำลังพัฒนา: เพียง 6/63 ประเทศผ่าน ไม่ใช่กฎสากล</div>
+              <div style="color:#c9d1d9;line-height:1.7">พิสูจน์ว่า pattern ของไทยไม่ใช่ผลพลอยได้ของการเป็นประเทศกำลังพัฒนา: เพียง 6/49 ประเทศผ่าน ไม่ใช่กฎสากล</div>
             </div>
           </div>
         </div>
@@ -1752,7 +1762,7 @@ const CLD_DATA={
   R2:{arrows:['a4','a5','a6'],color:'#58a6ff',cls:'r2',
     text:'<strong style="color:#58a6ff">R2 — Gas Depletion Reinforcing Loop</strong><br>Fossil gap → Erawan/Bongkot หมดเร็ว → LNG import costs drain capital → RE investment ลด → RE เพิ่มช้า → Fossil gap ยิ่งกว้าง<br><span style="color:#8b949e;font-size:11px">Data: gas SS −1.01 pp/yr p&lt;0.001 (98.6% → 59.2%) · structural break 2015 accelerated 3.6×</span>'},
   B1:{arrows:['a6','a7'],color:'#3fb950',cls:'b1',
-    text:'<strong style="color:#3fb950">B1 — RE Displacement Balancing Loop (overwhelmed)</strong><br>RE เพิ่ม → fossil gap เล็กลงบ้าง → investment เพิ่ม → RE เพิ่ม — แต่ <strong style="color:#f85149">absorption ratio 3.51× ทำให้ R1+R2 ชนะเสมอ</strong><br><span style="color:#8b949e;font-size:11px">17/17 transition success peers มี absorption &lt;1.0 · ไทย 3.51× ทุก sub-period fossil เพิ่ม</span>'},
+    text:'<strong style="color:#3fb950">B1 — RE Displacement Balancing Loop (overwhelmed)</strong><br>RE เพิ่ม → fossil gap เล็กลงบ้าง → investment เพิ่ม → RE เพิ่ม — แต่ <strong style="color:#f85149">absorption ratio 3.51× ทำให้ R1+R2 ชนะเสมอ</strong><br><span style="color:#8b949e;font-size:11px">14/14 transition success peers มี absorption &lt;1.0 · ไทย 3.51× ทุก sub-period fossil เพิ่ม</span>'},
 };
 let curLoop=null;
 const ALL_ARROWS=['a1','a2','a3','a4','a5','a6','a7'];
