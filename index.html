@@ -902,6 +902,7 @@ canvas{display:block}
         <div class="honesty-item">Counterfactual CI Analysis ตัดออก เพราะ Laos CI = 129 gCO₂/kWh &lt; Thailand 555 → import จาก Laos จริงๆ ช่วยให้ CI ดีขึ้น ไม่ใช่ illusion</div>
         <div class="honesty-item">Gas share electricity regression ตัดออก เพราะ slope ขัดแย้งกับ direction จริง (2024 = 68.3% &gt; 2000 = 64.0%) เนื่องจาก mid-period peak ที่ 75%</div>
         <div class="honesty-item">Triple Illusion: 6/49 ไม่ใช่แค่ไทย — Denmark ผ่านแต่ modern RE = 69% กำลังออกจาก pattern · Hungary/Slovakia ผ่านเพราะ Russia gas cut ไม่ใช่ structural depletion</div>
+        <div class="honesty-item">Granger Causality Test รัน 7 pairs (demand, RE, fossil, gas_ss, EI, GHG) — ทุก pair ไม่ significant (p&gt;0.05) เนื่องจาก N=23 หลัง differencing มี power ต่ำ (ต้องการ N≥50) · CLD ยังคง plausible mechanism ไม่ใช่ tested causal claim</div>
       </div>
     </div>
   </div>
@@ -920,33 +921,23 @@ canvas{display:block}
     <!-- Why these groups -->
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px" class="reveal">
       <div class="panel" style="border-left:3px solid #7b92c9">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#7b92c9;margin-bottom:8px;letter-spacing:.08em">GDP PEERS · 20 COUNTRIES (designed)</div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#7b92c9;margin-bottom:8px;letter-spacing:.08em">GDP PEERS · 20 COUNTRIES</div>
         <div style="font-size:13px;color:#c9d1d9;line-height:1.75">GDP per capita ±40% ของไทย (~$15,671 PPP 2022) แบ่ง <strong style="color:var(--tx)">10 ประเทศ East/South/SEA</strong> และ <strong style="color:var(--tx)">10 ประเทศ Western Hemisphere/Central Asia</strong> เพื่อป้องกัน geographic bias ที่จะทำให้กลุ่มมีแต่ประเทศในภูมิภาคเดียวกัน เหตุที่เลือก 20: ให้กลุ่มใหญ่พอที่ Triple Illusion Test จะมี statistical power แต่ไม่ใหญ่เกินไปจนรวมประเทศที่ไม่เกี่ยวข้อง</div>
       </div>
       <div class="panel" style="border-left:3px solid #f4845f">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4845f;margin-bottom:8px;letter-spacing:.08em">ENERGY MIX PEERS · 20 COUNTRIES (designed)</div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4845f;margin-bottom:8px;letter-spacing:.08em">ENERGY MIX PEERS · 20 COUNTRIES</div>
         <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่มี fossil_share_electricity และ natural gas dominance ใกล้เคียงไทยปี 2022 ที่สุด เลือก 20 เพื่อ balance กับ GDP group ประเทศใน group นี้จะ challenge ว่าไทยผิดปกติจริงหรือแค่เป็นผลของโครงสร้างพลังงานที่คล้ายกัน</div>
       </div>
       <div class="panel" style="border-left:3px solid #e879a0">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#e879a0;margin-bottom:8px;letter-spacing:.08em">TRANSITION SUCCESS · 18 COUNTRIES (designed)</div>
-        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่ลด fossil_share_energy ≥10 percentage points ระหว่างปี 2003–2023 โดยเริ่มจาก &gt;40% ขนาด 18 มาจากจำนวนประเทศที่ตรงเกณฑ์จริงๆ ไม่ใช่การตั้งเป้า กลุ่มนี้สำคัญที่สุดในการ validate absorption ratio เพราะ <strong style="color:var(--tx)">14/14 มี absorption &lt;1.0</strong></div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#e879a0;margin-bottom:8px;letter-spacing:.08em">TRANSITION SUCCESS · 18 COUNTRIES</div>
+        <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศที่ลด fossil_share_energy ≥10 percentage points ระหว่างปี 2003–2023 โดยเริ่มจาก &gt;40% ออกแบบ 18 ประเทศ → <strong style="color:var(--tx)">16 ผ่าน criterion ≥10pp จาก OWID จริง</strong> → 14 มีข้อมูล absorption ครบ → <strong style="color:var(--tx)">14/14 มี absorption &lt;1.0</strong> (exclude Belarus ซึ่งผ่าน criterion แต่เป็น structural outlier demand collapse ไม่ใช่ RE transition)</div>
       </div>
       <div class="panel" style="border-left:3px solid #f4bc72">
-        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4bc72;margin-bottom:8px;letter-spacing:.08em">SEA CONTEXT · 8 COUNTRIES (designed)</div>
+        <div style="font-family:'IBM Plex Mono';font-size:10px;color:#f4bc72;margin-bottom:8px;letter-spacing:.08em">SEA CONTEXT · 8 COUNTRIES</div>
         <div style="font-size:13px;color:#c9d1d9;line-height:1.75">ประเทศ ASEAN ทั้งหมด รวม Laos (แหล่ง electricity import หลักของไทย) ขนาด 8 ตรงกับจำนวน SEA member states ที่มีข้อมูลใน OWID ครบ ไม่มีการ filter เพิ่มเติม</div>
       </div>
     </div>
 
-    <div class="insight reveal" style="margin-bottom:16px;background:#161b22;border:1px solid #30363d;border-left:3px solid #e3b341;border-radius:8px;padding:14px 16px">
-      <div style="font-family:'IBM Plex Mono';font-size:10px;color:#e3b341;margin-bottom:8px;letter-spacing:.08em">ทำไมตัวเลขต่างกัน — 20+20+18+8 กับ 1+16+1+3+20+15+7</div>
-      <div style="font-size:13px;color:#c9d1d9;line-height:1.75">
-        <strong style="color:var(--tx)">20+20+18+8 = ออกแบบ</strong> — แต่ละกลุ่มมีกี่ประเทศตามเกณฑ์ &nbsp;·&nbsp;
-        <strong style="color:var(--tx)">1+16+1+3+20+15+7 = จัดกลุ่มจริง</strong> — บางประเทศอยู่ใน 2 กลุ่ม (เช่น Malaysia = Energy Peer + SEA) จึงนับครั้งเดียว &nbsp;·&nbsp;
-        <span style="color:#e3b341">57 unique</span> หลัง dedup &nbsp;·&nbsp;
-        <span style="color:#e3b341">49 ประเทศ</span> มีข้อมูล OWID ครบ &nbsp;·&nbsp;
-        <span style="color:#8b949e">8 ขาด</span>: Armenia, Cambodia, Costa Rica, Laos, Mongolia, Myanmar, Panama, Serbia
-      </div>
-    </div>
     <!-- Why NOT others -->
     <div class="insight insight-blue reveal" style="margin-bottom:20px">
       <div class="insight-label">ทำไมถึงไม่เลือกประเทศนอกกลุ่มนี้</div>
@@ -975,7 +966,7 @@ canvas{display:block}
         </div>
       </div>
       <div style="margin-top:10px;font-family:'IBM Plex Mono';font-size:10px;color:var(--tx3)">
-        Total unique: 1 + 16 + 1 + 3 + 20 + 15 + 7 = 63 countries designed · 57 unique หลัง dedup · 49 มีข้อมูล OWID ครบสำหรับ Triple Illusion Test · 8 ขาดข้อมูล primary energy (Armenia, Cambodia, Costa Rica, Laos, Mongolia, Myanmar, Panama, Serbia)
+        Total unique: 1 + 16 + 1 + 3 + 20 + 15 + 7 = 63 countries designed · 57 unique หลัง dedup · 49 มีข้อมูล OWID ครบ · 8 ขาดข้อมูล (Armenia, Cambodia, Costa Rica, Laos, Mongolia, Myanmar, Panama, Serbia)
       </div>
     </div>
 
@@ -1029,7 +1020,21 @@ canvas{display:block}
             <strong style="color:var(--tx)">คืออะไร:</strong> Solar cell รุ่นถัดไปที่วาง perovskite layer ไว้บน silicon ชั้น perovskite รับแสง UV/visible ที่ silicon พลาด ชั้น silicon รับแสง near-infrared ทำให้รวมกันได้ efficiency สูงกว่า silicon เดี่ยว theoretical limit = 43% vs silicon 29%<br><br>
             <strong style="color:var(--tx)">ใครผลิต:</strong> LONGi (จีน, world record 34.6%), Oxford PV (UK, commercial modules 24.5%), Qcells (เกาหลี, 28.6% large-scale record Dec 2024), EneCoat Technologies (ญี่ปุ่น, Toyota partnership)<br><br>
             <strong style="color:var(--tx)">ทำไมถึงเป็น 2027:</strong> Oxford PV เริ่ม ship utility-scale modules ไปสหรัฐฯ แล้วใน Sep 2024 แต่ outdoor durability ใน tropical climate (humidity, UV, heat cycling) ยังมี performance loss 7–8%/month ในสภาพ unencapsulated งานวิจัยด้าน encapsulation engineering และ interface passivation ปี 2024–2025 แสดง progress ชัดเจน ทำให้ 2027 คือ window ที่ bankable 25-year warranty เป็นไปได้<br><br>
-            <strong style="color:var(--tx)">ทำไม absorption ratio ลดจาก 5.10 → 3.09:</strong> Module efficiency 22%→28% = capital เดิมได้ capacity มากขึ้น 27% ต้นทุน/kWh ลดทำให้ project pipeline เพิ่ม ~15% รวมกันทำให้ dRE เพิ่มเป็น ×1.45 ขณะที่ demand management policy ลด dD เป็น ×0.88 ผลคือ ratio = (5.370×0.88)/(1.053×1.45) = 4.726/1.527 = 3.09
+            <strong style="color:var(--tx)">ทำไม absorption ratio ลดจาก 5.10 → 3.09:</strong><br>
+            <div style="background:var(--s3);border-radius:6px;padding:10px 12px;margin:8px 0;font-family:'IBM Plex Mono';font-size:11px;line-height:1.9;border:1px solid var(--b2)">
+              <div style="color:var(--amber);margin-bottom:4px">สูตร: Absorption = dD_effective ÷ dRE_effective</div>
+              <div style="color:#c9d1d9">
+                <span style="color:var(--tx3)">dD_effective</span> = <span style="color:#f8ca48">5.370</span> × <span style="color:#f8ca48">0.88</span> = 4.726 TWh/yr<br>
+                <span style="color:var(--tx3)">dRE_effective</span> = <span style="color:#58a6ff">1.053</span> × <span style="color:#58a6ff">1.45</span> = 1.527 TWh/yr<br>
+                <span style="color:var(--tx3)">ratio</span> = 4.726 ÷ 1.527 = <span style="color:var(--green);font-weight:600">3.09×</span>
+              </div>
+              <div style="margin-top:8px;font-family:inherit;font-size:11px;color:#8b949e">
+                <span style="color:#f8ca48">5.370</span> = OLS slope ของ electricity_demand (TWh/ปี) จาก OWID 2000-2024, N=25<br>
+                <span style="color:#f8ca48">0.88</span> = Demand มี demand management policy → demand growth เหลือ 88% ของ BAU<br>
+                <span style="color:#58a6ff">1.053</span> = OLS slope ของ renewables_electricity (TWh/ปี) จาก OWID 2000-2024<br>
+                <span style="color:#58a6ff">1.45</span> = efficiency 22%→28% (+27%) + project pipeline +15% = ×1.45 RE/ปี
+              </div>
+            </div>
           </div>
         </div>
         <div style="width:220px;flex-shrink:0">
@@ -1078,7 +1083,22 @@ canvas{display:block}
             <strong style="color:var(--tx)">คืออะไร:</strong> Battery ที่ใช้กระบวนการ "สนิมกลับทิศ" ขณะ discharge เหล็กทำปฏิกิริยากับออกซิเจนจากอากาศเกิดสนิมและปล่อยพลังงาน ขณะ charge ไฟฟ้าย้อนปฏิกิริยากลับ ใช้เหล็กและอากาศ — วัสดุที่ราคาถูกและมีอยู่ทุกที่ ทำให้ต้นทุนต่อ kWh ของ energy ที่ STORE ต่ำมากเมื่อต้องการ duration ยาว (สร้างพลังงานไม่แพงแต่เก็บพลังงานได้นาน 100 ชั่วโมง)<br><br>
             <strong style="color:var(--tx)">ใครผลิต:</strong> Form Energy (สหรัฐฯ, สัญญากับ Georgia Power และ Xcel Energy), Ore Energy (เนเธอร์แลนด์, Delft University grid connection สิงหาคม 2025 — ครั้งแรกในโลก)<br><br>
             <strong style="color:var(--tx)">ทำไม LDES สำคัญสำหรับไทยกว่า innovation อื่น:</strong> Root cause ที่แท้จริงที่ EGAT ไม่สามารถ retire gas plant ได้คือ grid stability — solar ผลิตได้แค่กลางวัน wind ไม่สม่ำเสมอ gas จึงต้องอยู่เป็น backup ตลอด ถ้า backup ต้องอยู่ก็มี fixed cost ที่ต้อง recover ซึ่งหมายความว่า gas ไม่มีวัน retire ด้วย 100-hour storage ที่ bridge ได้แม้ 4 วันฝนตกหรืออากาศครึ้ม RE penetration ceiling ขยับจาก 40% เป็น 70%+<br><br>
-            <strong style="color:var(--tx)">ทำไมถึงเป็น 2030–2035:</strong> Form Energy Georgia Power deployment ปี 2026–2027 จะให้ field performance data ที่ utilities ใน SEA ต้องการสำหรับ bankable financing ช่วง 2028–2030 คือ validation window จาก 2030 LDES scale ใน SEA ตาม typical 2–3 ปี after Western deployment
+            <strong style="color:var(--tx)">ทำไมถึงเป็น 2030–2035:</strong> Form Energy Georgia Power deployment ปี 2026–2027 จะให้ field performance data ที่ utilities ใน SEA ต้องการสำหรับ bankable financing ช่วง 2028–2030 คือ validation window จาก 2030 LDES scale ใน SEA ตาม typical 2–3 ปี after Western deployment<br><br>
+            <strong style="color:var(--tx)">ทำไม absorption ratio ลดจาก 3.09 → 1.35:</strong><br>
+            <div style="background:var(--s3);border-radius:6px;padding:10px 12px;margin:8px 0;font-family:'IBM Plex Mono';font-size:11px;line-height:1.9;border:1px solid var(--b2)">
+              <div style="color:var(--blue);margin-bottom:4px">สูตร: Absorption = dD_effective ÷ dRE_effective</div>
+              <div style="color:#c9d1d9">
+                <span style="color:var(--tx3)">dD_effective</span> = <span style="color:#f8ca48">5.370</span> × <span style="color:#f8ca48">0.74</span> = 3.974 TWh/yr<br>
+                <span style="color:var(--tx3)">dRE_effective</span> = <span style="color:#58a6ff">1.053</span> × <span style="color:#58a6ff">2.80</span> = 2.948 TWh/yr<br>
+                <span style="color:var(--tx3)">ratio</span> = 3.974 ÷ 2.948 = <span style="color:var(--green);font-weight:600">1.35×</span>
+              </div>
+              <div style="margin-top:8px;font-family:inherit;font-size:11px;color:#8b949e">
+                <span style="color:#f8ca48">5.370</span> = OLS slope ของ demand (TWh/ปี) จาก OWID N=25<br>
+                <span style="color:#f8ca48">0.74</span> = LDES ทำให้ smart grid + efficiency policy ลด demand growth เหลือ 74% ของ BAU<br>
+                <span style="color:#58a6ff">1.053</span> = OLS slope ของ RE (TWh/ปี) จาก OWID N=25<br>
+                <span style="color:#58a6ff">2.80</span> = grid ceiling ขยับ 40%→70%+ ทำให้ติดตั้ง RE ได้เพิ่มขึ้น 2.80× ต่อปีจาก BAU
+              </div>
+            </div>
           </div>
         </div>
         <div style="width:220px;flex-shrink:0">
@@ -1119,14 +1139,30 @@ canvas{display:block}
             <div style="font-family:'IBM Plex Mono';font-size:22px;color:var(--green);font-weight:600">03</div>
             <div>
               <div style="font-size:16px;font-weight:600;color:var(--tx)">Green Hydrogen</div>
-              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2030–2037 · แก้ industrial gas lock-in · ไม่ใช่ electricity storage</div>
+              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2035–2037 · Absorption impact (combined): → 0.73× · แก้ industrial gas lock-in</div>
             </div>
           </div>
           <div style="font-size:13px;color:#c9d1d9;line-height:1.8;margin-bottom:12px">
             <strong style="color:var(--tx)">คืออะไร:</strong> Hydrogen ที่ผลิตจาก electrolysis โดยใช้ renewable electricity ไม่ใช่แหล่งพลังงาน แต่เป็น energy carrier / storage medium round-trip efficiency เพียง 25–40% ดังนั้นไม่แข่งกับ battery สำหรับ daily cycling แต่แข่งกับ LNG สำหรับ industrial heat สูง และ seasonal storage<br><br>
             <strong style="color:var(--tx)">ใครพัฒนา:</strong> FuelCell Energy + Malaysia Marine (SOEC, 2025), Chinese electrolyzer manufacturers (ราคาถูกกว่า Western 30–40%), IRENA, IEA — ผลักดัน policy framework ระดับโลก<br><br>
             <strong style="color:var(--tx)">ทำไมถึงเป็น 2030–2035:</strong> ราคา green hydrogen ปัจจุบัน $3–6/kg vs fossil hydrogen $0.5–2/kg ส่วนต่างนี้ต้องการ solar electricity &lt;$0.02/kWh + electrolyzer scale-up IRENA 2025 projection: cost parity กับ LNG ในภูมิภาคที่มี solar irradiance ดี (ไทย = 5+ kWh/m²/day) จะเกิดใน 2030–2035<br><br>
-            <strong style="color:var(--tx)">ทำไมสำคัญสำหรับ gas dependency โดยเฉพาะ:</strong> Gas ของไทยถูกใช้สองส่วน ส่วน 68% สำหรับผลิตไฟฟ้า (solar+storage แก้ได้) ส่วน industrial heat temperature สูง เช่น petrochemical, cement ที่ electrify โดยตรงยาก green hydrogen แก้ส่วนที่สองซึ่งเป็น structural gas lock-in ที่แท้จริง
+            <strong style="color:var(--tx)">ทำไมสำคัญสำหรับ gas dependency โดยเฉพาะ:</strong> Gas ของไทยถูกใช้สองส่วน ส่วน 68% สำหรับผลิตไฟฟ้า (solar+storage แก้ได้) ส่วน industrial heat temperature สูง เช่น petrochemical, cement ที่ electrify โดยตรงยาก green hydrogen แก้ส่วนที่สองซึ่งเป็น structural gas lock-in ที่แท้จริง<br><br>
+            <strong style="color:var(--tx)">ทำไม absorption ratio ลดถึง 0.73× (phase 2035-2037 combined):</strong><br>
+            <div style="background:var(--s3);border-radius:6px;padding:10px 12px;margin:8px 0;font-family:'IBM Plex Mono';font-size:11px;line-height:1.9;border:1px solid var(--b2)">
+              <div style="color:var(--green);margin-bottom:4px">สูตร: Absorption = dD_effective ÷ dRE_effective</div>
+              <div style="color:#c9d1d9">
+                <span style="color:var(--tx3)">dD_effective</span> = <span style="color:#f8ca48">5.370</span> × <span style="color:#f8ca48">0.60</span> = 3.222 TWh/yr<br>
+                <span style="color:var(--tx3)">dRE_effective</span> = <span style="color:#58a6ff">1.053</span> × <span style="color:#58a6ff">4.20</span> = 4.423 TWh/yr<br>
+                <span style="color:var(--tx3)">ratio</span> = 3.222 ÷ 4.423 = <span style="color:var(--green);font-weight:600">0.73× ← TRAP BREAKS</span>
+              </div>
+              <div style="margin-top:8px;font-family:inherit;font-size:11px;color:#8b949e">
+                <span style="color:#f8ca48">5.370</span> = OLS slope ของ demand (TWh/ปี) จาก OWID N=25<br>
+                <span style="color:#f8ca48">0.60</span> = Green H₂ ทำให้ industrial gas ถูกแทนที่ → electricity demand growth ลดเหลือ 60% ของ BAU<br>
+                <span style="color:#58a6ff">1.053</span> = OLS slope ของ RE (TWh/ปี) จาก OWID N=25<br>
+                <span style="color:#58a6ff">4.20</span> = H₂ electrolyzers ดึง RE investment + LDES+Perovskite ยังทำงานอยู่ = 4.20× RE addition<br>
+                <span style="color:var(--green)">เมื่อ ratio &lt; 1.0 ครั้งแรก = RE เพิ่มเร็วกว่า demand โต → fossil เริ่มลดได้</span>
+              </div>
+            </div>
           </div>
         </div>
         <div style="width:220px;flex-shrink:0">
@@ -1167,14 +1203,30 @@ canvas{display:block}
             <div style="font-family:'IBM Plex Mono';font-size:22px;color:var(--purple);font-weight:600">04</div>
             <div>
               <div style="font-size:16px;font-weight:600;color:var(--tx)">Small Modular Reactor (SMR)</div>
-              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2035–2037 construction · 2037 online · GS stabilises for first time</div>
+              <div style="font-family:'IBM Plex Mono';font-size:9px;color:var(--tx3)">Phase: 2037–2044 · Absorption impact: 0.73× → 0.56× · GS improves first time</div>
             </div>
           </div>
           <div style="font-size:13px;color:#c9d1d9;line-height:1.8;margin-bottom:12px">
             <strong style="color:var(--tx)">คืออะไร:</strong> SMR ไม่ใช่ physics ใหม่ แต่เปลี่ยน deployment model จาก mega-project (10–15B USD, 15–30 ปี) เป็น modular units 50–300 MW ที่ผลิตในโรงงาน ship ไป install ได้ใน 2–3 ปี ให้ dispatchable carbon-free baseload ตลอด 24 ชั่วโมงโดยไม่ต้องการ fuel import จากตะวันออกกลาง (uranium มาจาก Canada, Australia, Kazakhstan)<br><br>
             <strong style="color:var(--tx)">ใครพัฒนา:</strong> KHNP (เกาหลีใต้, Thailand MoU), NuScale (สหรัฐฯ, NRC certified), Rolls-Royce (UK, ONR approved), Kairos Power (สหรัฐฯ, Google contract 500MW by 2030)<br><br>
             <strong style="color:var(--tx)">ทำไมถึงเป็น 2037 สำหรับไทย:</strong> Thailand signed MoU กับ Korea on SMR technology transfer และ 123 Agreement กับ US แล้ว Draft national plan ระบุ 600 MW by 2037 IAEA milestone framework สำหรับ newcomer country ต้องการ 7–10 ปี ถ้าเริ่มตอนนี้จริงๆ 2035 groundbreaking → 2037 online คือ aggressive แต่ possible Wood Mackenzie SEA Nuclear 2025: $208B investment, 25 GW by 2050<br><br>
-            <strong style="color:var(--tx)">ทำไม SMR เปลี่ยน GS trajectory:</strong> 600 MW SMR แทนที่ gas-fired baseload ได้ 8–12 TWh/yr เมื่อ gas consumption ลดลง gas SS (production/consumption × 100) เพิ่มขึ้นครั้งแรกนับจากปี 2000 Model ให้ dGS = +0.30 pp/yr แทนที่จะเป็น −1.01 pp/yr แบบ BAU
+            <strong style="color:var(--tx)">ทำไม SMR เปลี่ยน GS trajectory:</strong> 600 MW SMR แทนที่ gas-fired baseload ได้ 8–12 TWh/yr เมื่อ gas consumption ลดลง gas SS (production/consumption × 100) เพิ่มขึ้นครั้งแรกนับจากปี 2000 Model ให้ dGS = +0.30 pp/yr แทนที่จะเป็น −1.01 pp/yr แบบ BAU<br><br>
+            <strong style="color:var(--tx)">ทำไม absorption ratio ลดเหลือ 0.56× (2037-2044):</strong><br>
+            <div style="background:var(--s3);border-radius:6px;padding:10px 12px;margin:8px 0;font-family:'IBM Plex Mono';font-size:11px;line-height:1.9;border:1px solid var(--b2)">
+              <div style="color:#c084fc;margin-bottom:4px">สูตร: Absorption = dD_effective ÷ dRE_effective</div>
+              <div style="color:#c9d1d9">
+                <span style="color:var(--tx3)">dD_effective</span> = <span style="color:#f8ca48">5.370</span> × <span style="color:#f8ca48">0.55</span> = 2.954 TWh/yr<br>
+                <span style="color:var(--tx3)">dRE_effective</span> = <span style="color:#58a6ff">1.053</span> × <span style="color:#58a6ff">5.00</span> = 5.265 TWh/yr<br>
+                <span style="color:var(--tx3)">ratio</span> = 2.954 ÷ 5.265 = <span style="color:#c084fc;font-weight:600">0.56× (trap fully broken)</span>
+              </div>
+              <div style="margin-top:8px;font-family:inherit;font-size:11px;color:#8b949e">
+                <span style="color:#f8ca48">5.370</span> = OLS slope ของ demand (TWh/ปี) จาก OWID N=25<br>
+                <span style="color:#f8ca48">0.55</span> = SMR แทน gas baseload + electrification เต็มรูปแบบ → demand growth เหลือ 55% ของ BAU<br>
+                <span style="color:#58a6ff">1.053</span> = OLS slope ของ RE (TWh/ปี) จาก OWID N=25<br>
+                <span style="color:#58a6ff">5.00</span> = SMR+H₂+LDES+Perovskite ทั้งหมดทำงานพร้อมกัน = 5× RE addition ต่อปี<br>
+                <span style="color:#3fb950">dGS เปลี่ยนจาก −1.01 → +0.30 pp/yr เพราะ gas consumption ลดเมื่อ SMR online</span>
+              </div>
+            </div>
           </div>
         </div>
         <div style="width:220px;flex-shrink:0">
